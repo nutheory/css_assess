@@ -34919,7 +34919,8 @@ function Header(props) {
         ['CANCELLED', 'Cancelled'],
     ];
     function handleInputChange(e) {
-        const ev = e.target;
+        const ev = e.currentTarget;
+        console.log('EVVV', ev);
         setOrderFilter(ev.value);
     }
     function toggleDropdown(e) {

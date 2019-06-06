@@ -18,7 +18,8 @@ export function Header(props: IHeaderProps) {
   ]
 
   function handleInputChange(e: React.FormEvent<HTMLInputElement>) {
-    const ev = e.target
+    const ev = e.currentTarget
+    console.log('EVVV', ev)
     setOrderFilter(ev.value)
   }
 
