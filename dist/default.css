@@ -7691,6 +7691,26 @@ input{
   cursor: pointer;
 }
 
+.dropdown-options{
+  position: absolute;
+  max-height: 12rem;
+  width: 100%;
+  top: 4rem;
+  left: 1rem;
+  z-index: 100;
+  border-radius: 0.2rem;
+  border-color: #333;
+  background:rgba(0,0,0,0.4);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, .6);
+  .highlight{
+    background: #22292F;
+  }
+}
+
+.dropdown-options:hover{
+  cursor: pointer;
+}
+
 @media (min-width: 640px) {
   .sm\:appearance-none {
     -webkit-appearance: none;

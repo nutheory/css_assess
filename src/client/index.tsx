@@ -3,7 +3,11 @@ import * as ReactDOM from 'react-dom'
 import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
 import { OrderList } from './components/orders_list'
-const endpoint = window.location.host.includes("css-") ? 'https://css-assessment.herokuapp.com/api' : 'http://localhost:5000/api'
+
+const endpoint = window.location.host.includes('css-')
+  ? 'https://css-assessment.herokuapp.com/api'
+  : 'http://localhost:5000/api'
+
 import './styles/default.css'
 
 export interface IOrder {
@@ -17,12 +21,14 @@ export interface IOrder {
 
 interface IAppState {
   orders: Array<IOrder>
+  initialized: boolean
 }
 
 class App extends React.Component<{}, IAppState> {
   constructor(props: Object) {
     super(props)
     this.state = {
+      initialized: false,
       orders: [],
     }
 
@@ -31,7 +37,7 @@ class App extends React.Component<{}, IAppState> {
   }
 
   public initializeDataStream(): void {
-    this.setState({ orders: [] })
+    this.setState({ orders: [], initialized: true })
     const socket = ioClient.connect(endpoint)
     socket.emit('initialize', { event: 'INIT' })
     socket.on('FromAPI', responses => {
@@ -66,17 +72,25 @@ class App extends React.Component<{}, IAppState> {
   }
 
   public render(): JSX.Element {
-    const { orders } = this.state
+    const { orders, initialized } = this.state
     return (
       <div className="container mx-auto my-8">
         <Header
           handleInitCallback={this.initializeDataStream}
           setFilterCallback={this.setFilter}
         />
-        {orders.length > 0 ? (
-          <OrderList orders={orders} />
+        {initialized ? (
+          <div>
+            {orders.length > 0 ? (
+              <OrderList orders={orders} />
+            ) : (
+              <p className="title mx-4 text-xl mt-4">Loading...</p>
+            )}
+          </div>
         ) : (
-          <p className="title mx-4 text-xl mt-4">Loading...</p>
+          <p className="title mx-4 text-xl mt-4">
+            Initialize to start data stream...
+          </p>
         )}
       </div>
     )

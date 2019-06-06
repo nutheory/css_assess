@@ -34911,8 +34911,16 @@ function Header(props) {
     const [dropdownActive, setDropdownActive] = React.useState(false);
     const [orderFilter, setOrderFilter] = React.useState('');
     const { handleInitCallback, setFilterCallback } = props;
+    const ddOptions = [
+        ['CREATED', 'Cooking Now'],
+        ['COOKED', 'Prepared'],
+        ['DRIVER_RECEIVED', 'Out for Delivery'],
+        ['DELIVERED', 'Delivered'],
+        ['CANCELLED', 'Cancelled'],
+    ];
     function handleInputChange(e) {
-        const ev = e.currentTarget;
+        const ev = e.target;
+        setOrderFilter(ev.value);
     }
     function toggleDropdown(e) {
         setDropdownActive(!dropdownActive);
@@ -34927,14 +34935,19 @@ function Header(props) {
     function onInputKeyPressed(e) {
         console.log(e);
     }
+    function handleDropdownSelection(e) {
+        console.log(e);
+    }
     return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800" },
         React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
             "Front-end Engineering Challenge",
             React.createElement("span", { className: "block text-sm" }, "by Derek Rush")),
-        React.createElement("div", { className: "flex-1 mx-4" },
+        React.createElement("div", { className: "flex-1" },
             React.createElement("div", { className: "push_button blue_push", onClick: handleInitCallback }, "Initialize")),
-        React.createElement("input", { className: "w-1/4 lg:w-1/5 m-4", name: "name", type: "text", placeholder: "Filter", value: name, onChange: handleInputChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
-        React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options` })));
+        React.createElement("div", { className: "relative w-1/4 lg:w-1/5 mr-8" },
+            React.createElement("input", { className: "m-4", name: "name", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleInputChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
+            React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options` },
+                React.createElement("ul", null, ddOptions.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "text-xl py-1 px-2 hover:bg-black hover:cursor-pointer t-shadow", "data-value": opt[0] }, opt[1]))))))));
 }
 exports.Header = Header;
 
@@ -35082,19 +35095,22 @@ const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/
 const ioClient = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 const header_1 = __webpack_require__(/*! ./components/header */ "./src/client/components/header.tsx");
 const orders_list_1 = __webpack_require__(/*! ./components/orders_list */ "./src/client/components/orders_list.tsx");
-const endpoint = window.location.host.includes("css-") ? 'https://css-assessment.herokuapp.com/api' : 'http://localhost:5000/api';
+const endpoint = window.location.host.includes('css-')
+    ? 'https://css-assessment.herokuapp.com/api'
+    : 'http://localhost:5000/api';
 __webpack_require__(/*! ./styles/default.css */ "./src/client/styles/default.css");
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            initialized: false,
             orders: [],
         };
         this.initializeDataStream = this.initializeDataStream.bind(this);
         this.setFilter = this.setFilter.bind(this);
     }
     initializeDataStream() {
-        this.setState({ orders: [] });
+        this.setState({ orders: [], initialized: true });
         const socket = ioClient.connect(endpoint);
         socket.emit('initialize', { event: 'INIT' });
         socket.on('FromAPI', responses => {
@@ -35118,10 +35134,10 @@ class App extends React.Component {
         console.log('FILTER', filter);
     }
     render() {
-        const { orders } = this.state;
+        const { orders, initialized } = this.state;
         return (React.createElement("div", { className: "container mx-auto my-8" },
             React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter }),
-            orders.length > 0 ? (React.createElement(orders_list_1.OrderList, { orders: orders })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading..."))));
+            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrderList, { orders: orders })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Initialize to start data stream..."))));
     }
 }
 ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
