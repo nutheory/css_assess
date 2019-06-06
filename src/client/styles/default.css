@@ -1,0 +1,149 @@
+@tailwind base;
+
+@tailwind components;
+
+.order-card-basic{
+  @apply p-4 border-2 rounded bg-gray-700 shadow-lg relative;
+}
+
+.history-action{
+}
+
+.canceled{
+  @apply border-red-500 opacity-50 text-red-500;
+}
+
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css?family=Shrikhand|Source+Sans+Pro:300,400,600');
+
+body{
+  background-color: #22292f;
+  color: #fff;
+}
+
+.title{
+  font-family: 'Shrikhand', Helvetica, sans-serif
+}
+
+.yellow{
+  border-color: #FAF089;
+
+  & .status-text{
+    color: #FAF089;
+  }
+}
+
+.orange{
+  border-color: #FBD38D;
+
+  & .status-text{
+    color: #FBD38D;
+  }
+}
+
+.blue{
+  border-color: #63B3ED;
+
+  & .status-text{
+    color: #63B3ED;
+  }
+}
+
+.green{
+  border-color: #68D391;
+
+  & .status-text{
+    color: #68D391;
+  }
+}
+
+.red{
+  border-color: #E53E3E;
+  opacity: 0.5;
+
+  & .status-text{
+    color: #E53E3E;
+  }
+}
+
+.history-action{
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+
+}
+
+input{
+  width:100%;
+  padding:10px 0px 10px 8px;
+  border-radius:5px;
+  box-shadow:inset 4px 6px 10px -4px rgba(0,0,0,0.7), 0 1px 1px -1px rgba(255,255,255,0.8);
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(0,0,0,1);
+  margin-bottom:10px;
+  color:#6E6E6E;
+  text-shadow:#000 0px 1px 5px;
+}
+
+.push_button {
+    position: relative;
+    width:220px;
+    height:2.4rem;
+    text-align:center;
+    color:#FFF;
+    text-decoration:none;
+    line-height:43px;
+    font-family:'Shrikhand', Helvetica;
+    font-size: 1.6rem;
+    display: block;
+    margin: 1rem;
+}
+.push_button:before {
+    background:#f0f0f0;
+    background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D0D0D0), to(#f0f0f0));
+    opacity: 0.1;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+    box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+    
+    position: absolute;
+    content: "";
+    left: -6px; right: -6px;
+    top: -6px; bottom: -10px;
+    z-index: -1;
+}
+
+.push_button:active {
+    -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
+    top:5px;
+}
+.push_button:active:before{
+    top: -11px;
+    bottom: -5px;
+    content: "";
+}
+
+.blue_push {
+    text-shadow:-1px -1px 0 #2C7982;
+    background: #3EACBA;
+    border:1px solid #379AA4;
+    background-image:linear-gradient(to bottom, #48C6D4, #3EACBA);
+    
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    
+    -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+    -moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+    box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.blue_push:hover {
+    background: #48C6D4;
+    background-image:linear-gradient(to bottom, #3EACBA, #48C6D4);
+    cursor: pointer;
+}
