@@ -35082,7 +35082,7 @@ const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/
 const ioClient = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 const header_1 = __webpack_require__(/*! ./components/header */ "./src/client/components/header.tsx");
 const orders_list_1 = __webpack_require__(/*! ./components/orders_list */ "./src/client/components/orders_list.tsx");
-const endpoint = window.location.host.includes("css-") ? 'http://css-assessment.herokuapp.com/api' : 'http://localhost:5000/api';
+const endpoint = window.location.host.includes("css-") ? 'https://css-assessment.herokuapp.com/api' : 'http://localhost:5000/api';
 __webpack_require__(/*! ./styles/default.css */ "./src/client/styles/default.css");
 class App extends React.Component {
     constructor(props) {

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
 import { OrderList } from './components/orders_list'
-const endpoint = window.location.host.includes("css-") ? 'http://css-assessment.herokuapp.com/api' : 'http://localhost:5000/api'
+const endpoint = window.location.host.includes("css-") ? 'https://css-assessment.herokuapp.com/api' : 'http://localhost:5000/api'
 import './styles/default.css'
 
 export interface IOrder {
