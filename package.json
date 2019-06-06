@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node \"./index.js\"",
     "start-dev": "webpack --config webpack.config.js --watch --mode development",
     "start-server": "nodemon \"./index.js\" --watch \"./src/api\"",
     "format": "prettier --write \"src/**/*.js\"",
