@@ -61,3 +61,5 @@ typings/
 .next
 
 .vscode
+
+__snapshots__/

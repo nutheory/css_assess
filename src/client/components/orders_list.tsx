@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { OrderCard } from './order_card'
-import { IOrder } from '../index'
+import { IOrder } from '../interfaces'
 
 interface IOrdersProps {
   orders: Array<IOrder>
   filter: string
+  editOrderCallback: (order: Object) => void
 }
 
 export function OrderList(props: IOrdersProps) {
-  const { orders, filter } = props
+  const { orders, filter, editOrderCallback } = props
   let orders_with_filter
   if (filter !== '') {
     orders_with_filter = orders.filter(ord => ord.event_name === filter)
@@ -24,6 +25,7 @@ export function OrderList(props: IOrdersProps) {
             className="w-full md:w-1/2 lg:w-1/4 list-none p-4"
           >
             <OrderCard
+              editOrderCallback={editOrderCallback}
               destination={ord.destination}
               eventName={ord.event_name}
               name={ord.name}

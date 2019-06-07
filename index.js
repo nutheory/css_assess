@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
@@ -11,7 +10,6 @@ app.use(express.static(path.resolve() + '/dist/'))
 
 io.of('/api').on('connect', socket => {
   socket.on('initialize', data => {
-    console.log('Client data', data)
     if (data.event === 'INIT') {
       setupAPI(socket, io)
     }

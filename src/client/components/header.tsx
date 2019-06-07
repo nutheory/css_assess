@@ -11,6 +11,7 @@ export function Header(props: IHeaderProps) {
   const [dropdownActive, setDropdownActive] = React.useState(false)
   const [orderFilter, setOrderFilter] = React.useState('')
   const [options, setOptions] = React.useState(eventOptions)
+  const filterDropdownList = React.useRef<HTMLDivElement>(null)
 
   function handleInputChange(e: React.FormEvent<HTMLInputElement>) {
     const ev = e.currentTarget
@@ -28,6 +29,8 @@ export function Header(props: IHeaderProps) {
   }
 
   function toggleDropdown() {
+    if (filterDropdownList.current === null) return
+    const hl = filterDropdownList.current.querySelector('li:first-child')
     setDropdownActive(!dropdownActive)
   }
 
@@ -39,8 +42,31 @@ export function Header(props: IHeaderProps) {
     }
   }
 
-  function onInputKeyPressed(e: React.FormEvent<HTMLInputElement>) {
-    console.log(e)
+  function onInputKeyPressed(e: React.KeyboardEvent<HTMLInputElement>) {
+    const el = e.keyCode
+    if (filterDropdownList.current === null) return
+    let current = filterDropdownList.current.querySelector('li.highlight')
+    if (current) {
+      if (el === 40) {
+        if (current.nextElementSibling) {
+          current.classList.toggle('highlight')
+          current.nextElementSibling.classList.add('highlight')
+        }
+      } else if (el === 38) {
+        if (current.previousElementSibling) {
+          current.classList.toggle('highlight')
+          current.previousElementSibling.classList.add('highlight')
+        }
+      } else if (dropdownActive && el === 13) {
+        const { value, name } = (current as HTMLElement).dataset
+        setFilterCallback(value)
+        setOrderFilter(name || '')
+        toggleDropdown()
+      }
+    } else {
+      const current = filterDropdownList.current.querySelector('li:first-child')
+      current ? current.classList.add('highlight') : null
+    }
   }
 
   function handleDropdownSelection(e: React.SyntheticEvent<EventTarget>) {
@@ -61,7 +87,7 @@ export function Header(props: IHeaderProps) {
           Initialize
         </div>
       </div>
-      <div className="relative w-1/4 lg:w-1/5 mr-8">
+      <div className="relative w-1/4 lg:w-1/5 mr-8" onBlur={closeDropdown}>
         <input
           className="m-4"
           name="name"
@@ -74,13 +100,14 @@ export function Header(props: IHeaderProps) {
         />
         <div
           className={`${dropdownActive ? 'block' : 'hidden'} dropdown-options`}
+          ref={filterDropdownList}
         >
           <ul>
             {options.map(opt => (
               <li
                 key={opt[0]}
                 onClick={handleDropdownSelection}
-                className="text-xl py-1 px-2 hover:bg-black hover:cursor-pointer t-shadow"
+                className="p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow"
                 data-value={opt[0]}
                 data-name={opt[1]}
               >

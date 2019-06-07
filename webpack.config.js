@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 
 module.exports = {
-  entry: './src/client/index.tsx',
+  entry: './src/client/app.tsx',
   output: {
     path: __dirname + '/dist',
     publicPath: '/',

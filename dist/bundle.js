@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/client/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/client/app.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -34896,197 +34896,10 @@ module.exports = yeast;
 
 /***/ }),
 
-/***/ "./src/client/components/header.tsx":
-/*!******************************************!*\
-  !*** ./src/client/components/header.tsx ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-function Header(props) {
-    const { handleInitCallback, setFilterCallback, eventOptions } = props;
-    const [dropdownActive, setDropdownActive] = React.useState(false);
-    const [orderFilter, setOrderFilter] = React.useState('');
-    const [options, setOptions] = React.useState(eventOptions);
-    function handleInputChange(e) {
-        const ev = e.currentTarget;
-        if (ev.value.length > 0) {
-            setOptions(options.filter(opt => opt[1].toLowerCase().startsWith(ev.value.toLowerCase())));
-        }
-        else {
-            setOptions(eventOptions);
-        }
-        setFilterCallback('');
-        setOrderFilter(ev.value);
-    }
-    function toggleDropdown() {
-        setDropdownActive(!dropdownActive);
-    }
-    function closeDropdown() {
-        if (dropdownActive) {
-            setTimeout(() => {
-                setDropdownActive(false);
-            }, 300);
-        }
-    }
-    function onInputKeyPressed(e) {
-        console.log(e);
-    }
-    function handleDropdownSelection(e) {
-        const { value, name } = e.target.dataset;
-        setFilterCallback(value);
-        setOrderFilter(name || '');
-        toggleDropdown();
-    }
-    return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800" },
-        React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
-            "Front-end Engineering Challenge",
-            React.createElement("span", { className: "block text-sm" }, "by Derek Rush")),
-        React.createElement("div", { className: "flex-1" },
-            React.createElement("div", { className: "push_button blue_push", onClick: handleInitCallback }, "Initialize")),
-        React.createElement("div", { className: "relative w-1/4 lg:w-1/5 mr-8" },
-            React.createElement("input", { className: "m-4", name: "name", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleInputChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
-            React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options` },
-                React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "text-xl py-1 px-2 hover:bg-black hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1]))))))));
-}
-exports.Header = Header;
-
-
-/***/ }),
-
-/***/ "./src/client/components/order_card.tsx":
-/*!**********************************************!*\
-  !*** ./src/client/components/order_card.tsx ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-class OrderCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showingHistory: false,
-        };
-        this.humanizeStatus = this.humanizeStatus.bind(this);
-        this.colorizeStatus = this.colorizeStatus.bind(this);
-        this.toggleHistory = this.toggleHistory.bind(this);
-    }
-    humanizeStatus(status) {
-        if (status === 'CREATED') {
-            return 'Cooking Now';
-        }
-        else if (status === 'COOKED') {
-            return 'Prepared';
-        }
-        else if (status === 'DRIVER_RECEIVED') {
-            return 'Out for Delivery';
-        }
-        else if (status === 'DELIVERED') {
-            return 'Delivered';
-        }
-        else {
-            return 'Cancelled';
-        }
-    }
-    colorizeStatus(status) {
-        if (status === 'CREATED') {
-            return 'yellow';
-        }
-        else if (status === 'COOKED') {
-            return 'orange';
-        }
-        else if (status === 'DRIVER_RECEIVED') {
-            return 'blue';
-        }
-        else if (status === 'DELIVERED') {
-            return 'green';
-        }
-        else {
-            return 'red';
-        }
-    }
-    toggleHistory(e) {
-        e.preventDefault();
-        const { showingHistory } = this.state;
-        this.setState({ showingHistory: !showingHistory });
-    }
-    render() {
-        const { showingHistory } = this.state;
-        const { eventName, destination, name, id, history } = this.props;
-        return (React.createElement("div", { className: `order-card-basic ${this.colorizeStatus(eventName)}` }, !showingHistory ? (React.createElement("div", null,
-            React.createElement("div", { className: "history-action text-xs" },
-                React.createElement("a", { href: "#", onClick: this.toggleHistory }, "History")),
-            React.createElement("div", null,
-                React.createElement("label", { className: "text-xs" }, "Status"),
-                React.createElement("p", { className: "status-text" }, this.humanizeStatus(eventName))),
-            React.createElement("div", null,
-                React.createElement("label", { className: "text-xs" }, "Destination"),
-                React.createElement("p", null, destination)),
-            React.createElement("div", { className: "flex" },
-                React.createElement("div", { className: "flex-1" },
-                    React.createElement("label", { className: "block text-xs" }, "Name"),
-                    React.createElement("p", { className: "block" }, name)),
-                React.createElement("div", null,
-                    React.createElement("label", { className: "block text-xs text-right" }, "ID"),
-                    React.createElement("p", { className: "block text-right" }, id))))) : (React.createElement("div", null,
-            React.createElement("div", { className: "history-action text-xs" },
-                React.createElement("a", { href: "#", onClick: this.toggleHistory }, "Info")),
-            history.map((hist, i) => (React.createElement("div", { key: `history_${i}_${id}` },
-                React.createElement("div", { className: "mt-2" },
-                    React.createElement("p", null, this.humanizeStatus(hist.event_name)),
-                    React.createElement("label", { className: "text-xs" },
-                        "Sent ",
-                        hist.sent_at_second,
-                        " seconds ago")))))))));
-    }
-}
-exports.OrderCard = OrderCard;
-
-
-/***/ }),
-
-/***/ "./src/client/components/orders_list.tsx":
-/*!***********************************************!*\
-  !*** ./src/client/components/orders_list.tsx ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-const order_card_1 = __webpack_require__(/*! ./order_card */ "./src/client/components/order_card.tsx");
-function OrderList(props) {
-    const { orders, filter } = props;
-    let orders_with_filter;
-    if (filter !== '') {
-        orders_with_filter = orders.filter(ord => ord.event_name === filter);
-    }
-    else {
-        orders_with_filter = orders;
-    }
-    return (React.createElement("div", null,
-        React.createElement("ul", { className: "flex flex-wrap mx--4" }, orders_with_filter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: "w-full md:w-1/2 lg:w-1/4 list-none p-4" },
-            React.createElement(order_card_1.OrderCard, { destination: ord.destination, eventName: ord.event_name, name: ord.name, history: ord.history, id: ord.id })))))));
-}
-exports.OrderList = OrderList;
-
-
-/***/ }),
-
-/***/ "./src/client/index.tsx":
-/*!******************************!*\
-  !*** ./src/client/index.tsx ***!
-  \******************************/
+/***/ "./src/client/app.tsx":
+/*!****************************!*\
+  !*** ./src/client/app.tsx ***!
+  \****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35098,17 +34911,11 @@ const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/
 const ioClient = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 const header_1 = __webpack_require__(/*! ./components/header */ "./src/client/components/header.tsx");
 const orders_list_1 = __webpack_require__(/*! ./components/orders_list */ "./src/client/components/orders_list.tsx");
+const helpers_1 = __webpack_require__(/*! ./helpers */ "./src/client/helpers.ts");
 __webpack_require__(/*! ./styles/default.css */ "./src/client/styles/default.css");
 const endpoint = window.location.host.includes('css-')
     ? 'https://css-assessment.herokuapp.com/api'
     : 'http://localhost:5000/api';
-const eventOptions = [
-    ['CREATED', 'Cooking Now'],
-    ['COOKED', 'Prepared'],
-    ['DRIVER_RECEIVED', 'Out for Delivery'],
-    ['DELIVERED', 'Delivered'],
-    ['CANCELLED', 'Cancelled'],
-];
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -35119,6 +34926,7 @@ class App extends React.Component {
         };
         this.initializeDataStream = this.initializeDataStream.bind(this);
         this.setFilter = this.setFilter.bind(this);
+        this.editOrder = this.editOrder.bind(this);
     }
     initializeDataStream() {
         this.setState({ orders: [], initialized: true });
@@ -35144,14 +34952,262 @@ class App extends React.Component {
     setFilter(filter) {
         this.setState({ filter });
     }
+    editOrder(order) {
+        const { orders } = this.state;
+        this.setState(prevState => ({
+            orders: prevState.orders.map(ord => ord.id === order.id
+                ? Object.assign({}, ord, { event_name: order.event_name, history: ord.history.concat(Object.assign({}, ord, { event_name: order.event_name, sent_at_second: 'NA (edited)' })) }) : ord),
+        }));
+    }
     render() {
         const { orders, initialized, filter } = this.state;
         return (React.createElement("div", { className: "container mx-auto my-8" },
-            React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter, eventOptions: eventOptions }),
-            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrderList, { orders: orders, filter: filter })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Initialize to start data stream..."))));
+            React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter, eventOptions: helpers_1.eventOptions }),
+            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrderList, { orders: orders, filter: filter, editOrderCallback: this.editOrder })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Initialize to start data stream..."))));
     }
 }
-ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+exports.App = App;
+ReactDOM.render(React.createElement(App, null), document.getElementById('root') || document.createElement('div'));
+
+
+/***/ }),
+
+/***/ "./src/client/components/header.tsx":
+/*!******************************************!*\
+  !*** ./src/client/components/header.tsx ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function Header(props) {
+    const { handleInitCallback, setFilterCallback, eventOptions } = props;
+    const [dropdownActive, setDropdownActive] = React.useState(false);
+    const [orderFilter, setOrderFilter] = React.useState('');
+    const [options, setOptions] = React.useState(eventOptions);
+    const filterDropdownList = React.useRef(null);
+    function handleInputChange(e) {
+        const ev = e.currentTarget;
+        if (ev.value.length > 0) {
+            setOptions(options.filter(opt => opt[1].toLowerCase().startsWith(ev.value.toLowerCase())));
+        }
+        else {
+            setOptions(eventOptions);
+        }
+        setFilterCallback('');
+        setOrderFilter(ev.value);
+    }
+    function toggleDropdown() {
+        if (filterDropdownList.current === null)
+            return;
+        const hl = filterDropdownList.current.querySelector('li:first-child');
+        setDropdownActive(!dropdownActive);
+    }
+    function closeDropdown() {
+        if (dropdownActive) {
+            setTimeout(() => {
+                setDropdownActive(false);
+            }, 300);
+        }
+    }
+    function onInputKeyPressed(e) {
+        const el = e.keyCode;
+        if (filterDropdownList.current === null)
+            return;
+        let current = filterDropdownList.current.querySelector('li.highlight');
+        if (current) {
+            if (el === 40) {
+                if (current.nextElementSibling) {
+                    current.classList.toggle('highlight');
+                    current.nextElementSibling.classList.add('highlight');
+                }
+            }
+            else if (el === 38) {
+                if (current.previousElementSibling) {
+                    current.classList.toggle('highlight');
+                    current.previousElementSibling.classList.add('highlight');
+                }
+            }
+            else if (dropdownActive && el === 13) {
+                const { value, name } = current.dataset;
+                setFilterCallback(value);
+                setOrderFilter(name || '');
+                toggleDropdown();
+            }
+        }
+        else {
+            const current = filterDropdownList.current.querySelector('li:first-child');
+            current ? current.classList.add('highlight') : null;
+        }
+    }
+    function handleDropdownSelection(e) {
+        const { value, name } = e.target.dataset;
+        setFilterCallback(value);
+        setOrderFilter(name || '');
+        toggleDropdown();
+    }
+    return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800" },
+        React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
+            "Front-end Engineering Challenge",
+            React.createElement("span", { className: "block text-sm" }, "by Derek Rush")),
+        React.createElement("div", { className: "flex-1" },
+            React.createElement("div", { className: "push_button blue_push", onClick: handleInitCallback }, "Initialize")),
+        React.createElement("div", { className: "relative w-1/4 lg:w-1/5 mr-8", onBlur: closeDropdown },
+            React.createElement("input", { className: "m-4", name: "name", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleInputChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
+            React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
+                React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1]))))))));
+}
+exports.Header = Header;
+
+
+/***/ }),
+
+/***/ "./src/client/components/order_card.tsx":
+/*!**********************************************!*\
+  !*** ./src/client/components/order_card.tsx ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+const helpers_1 = __webpack_require__(/*! ../helpers */ "./src/client/helpers.ts");
+function OrderCard(props) {
+    const { eventName, destination, name, id, history, editOrderCallback } = props;
+    const [showingHistory, setShowingHistory] = React.useState(false);
+    const [editStatus, setEditStatus] = React.useState(false);
+    function modifyStatus() {
+        setEditStatus(!editStatus);
+    }
+    function handleStatusChange(e) {
+        const ev = e.currentTarget;
+        editOrderCallback({ id: ev.name, event_name: ev.value });
+        modifyStatus();
+    }
+    function toggleHistory(e) {
+        setShowingHistory(!showingHistory);
+    }
+    return (React.createElement("div", { className: `order-card-basic ${helpers_1.colorizeStatus(eventName)}` }, !showingHistory ? (React.createElement("div", null,
+        React.createElement("div", { className: "history-action text-xs" },
+            React.createElement("span", { onClick: toggleHistory }, "History")),
+        React.createElement("div", null,
+            React.createElement("label", { className: "text-xs" }, "Status"),
+            !editStatus ? (React.createElement("p", { className: "status-text" },
+                helpers_1.humanizeStatus(eventName),
+                React.createElement("span", { onClick: modifyStatus, className: "text-sm text-white fake-link hover:underline inline-block pl-3" }, "edit"))) : (React.createElement("div", null,
+                React.createElement("select", { name: id, className: "text-gray-800", value: eventName, onChange: handleStatusChange }, helpers_1.eventOptions.map(eo => (React.createElement("option", { key: `id_${id}_${eo[0]}`, value: eo[0] }, eo[1])))),
+                React.createElement("span", { onClick: modifyStatus, className: "text-sm text-white fake-link hover:underline inline-block pl-3" }, "cancel")))),
+        React.createElement("div", null,
+            React.createElement("label", { className: "text-xs" }, "Destination"),
+            React.createElement("p", null, destination)),
+        React.createElement("div", { className: "flex" },
+            React.createElement("div", { className: "flex-1" },
+                React.createElement("label", { className: "block text-xs" }, "Name"),
+                React.createElement("p", { className: "block" }, name)),
+            React.createElement("div", null,
+                React.createElement("label", { className: "block text-xs text-right" }, "ID"),
+                React.createElement("p", { className: "block text-right" }, id))))) : (React.createElement("div", null,
+        React.createElement("div", { className: "history-action text-xs" },
+            React.createElement("a", { href: "#", onClick: toggleHistory }, "Info")),
+        history.map((hist, i) => (React.createElement("div", { key: `history_${i}_${id}` },
+            React.createElement("div", { className: "mt-2" },
+                React.createElement("p", null, helpers_1.humanizeStatus(hist.event_name)),
+                React.createElement("label", { className: "text-xs" },
+                    "Sent ",
+                    hist.sent_at_second,
+                    " seconds ago")))))))));
+}
+exports.OrderCard = OrderCard;
+
+
+/***/ }),
+
+/***/ "./src/client/components/orders_list.tsx":
+/*!***********************************************!*\
+  !*** ./src/client/components/orders_list.tsx ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+const order_card_1 = __webpack_require__(/*! ./order_card */ "./src/client/components/order_card.tsx");
+function OrderList(props) {
+    const { orders, filter, editOrderCallback } = props;
+    let orders_with_filter;
+    if (filter !== '') {
+        orders_with_filter = orders.filter(ord => ord.event_name === filter);
+    }
+    else {
+        orders_with_filter = orders;
+    }
+    return (React.createElement("div", null,
+        React.createElement("ul", { className: "flex flex-wrap mx--4" }, orders_with_filter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: "w-full md:w-1/2 lg:w-1/4 list-none p-4" },
+            React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: ord.destination, eventName: ord.event_name, name: ord.name, history: ord.history, id: ord.id })))))));
+}
+exports.OrderList = OrderList;
+
+
+/***/ }),
+
+/***/ "./src/client/helpers.ts":
+/*!*******************************!*\
+  !*** ./src/client/helpers.ts ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.humanizeStatus = (status) => {
+    if (status === 'CREATED') {
+        return 'Cooking Now';
+    }
+    else if (status === 'COOKED') {
+        return 'Prepared';
+    }
+    else if (status === 'DRIVER_RECEIVED') {
+        return 'Out for Delivery';
+    }
+    else if (status === 'DELIVERED') {
+        return 'Delivered';
+    }
+    else {
+        return 'Cancelled';
+    }
+};
+exports.colorizeStatus = (status) => {
+    if (status === 'CREATED') {
+        return 'yellow';
+    }
+    else if (status === 'COOKED') {
+        return 'orange';
+    }
+    else if (status === 'DRIVER_RECEIVED') {
+        return 'blue';
+    }
+    else if (status === 'DELIVERED') {
+        return 'green';
+    }
+    else {
+        return 'red';
+    }
+};
+exports.eventOptions = [
+    ['CREATED', 'Cooking Now'],
+    ['COOKED', 'Prepared'],
+    ['DRIVER_RECEIVED', 'Out for Delivery'],
+    ['DELIVERED', 'Delivered'],
+    ['CANCELLED', 'Cancelled'],
+];
 
 
 /***/ }),

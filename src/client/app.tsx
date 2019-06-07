@@ -3,28 +3,13 @@ import * as ReactDOM from 'react-dom'
 import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
 import { OrderList } from './components/orders_list'
+import { eventOptions } from './helpers'
+import { IOrder } from './interfaces'
 import './styles/default.css'
 
 const endpoint = window.location.host.includes('css-')
   ? 'https://css-assessment.herokuapp.com/api'
   : 'http://localhost:5000/api'
-
-const eventOptions = [
-  ['CREATED', 'Cooking Now'],
-  ['COOKED', 'Prepared'],
-  ['DRIVER_RECEIVED', 'Out for Delivery'],
-  ['DELIVERED', 'Delivered'],
-  ['CANCELLED', 'Cancelled'],
-]
-
-export interface IOrder {
-  id: string
-  name: string
-  destination: string
-  event_name: string
-  history: Array<IOrder>
-  sent_at_second: number
-}
 
 interface IAppState {
   orders: Array<IOrder>
@@ -32,7 +17,7 @@ interface IAppState {
   filter: string
 }
 
-class App extends React.Component<{}, IAppState> {
+export class App extends React.Component<{}, IAppState> {
   constructor(props: Object) {
     super(props)
     this.state = {
@@ -43,6 +28,7 @@ class App extends React.Component<{}, IAppState> {
 
     this.initializeDataStream = this.initializeDataStream.bind(this)
     this.setFilter = this.setFilter.bind(this)
+    this.editOrder = this.editOrder.bind(this)
   }
 
   public initializeDataStream(): void {
@@ -80,6 +66,25 @@ class App extends React.Component<{}, IAppState> {
     this.setState({ filter })
   }
 
+  public editOrder(order: IOrder): void {
+    const { orders } = this.state
+    this.setState(prevState => ({
+      orders: prevState.orders.map(ord =>
+        ord.id === order.id
+          ? {
+              ...ord,
+              event_name: order.event_name,
+              history: ord.history.concat({
+                ...ord,
+                event_name: order.event_name,
+                sent_at_second: 'NA (edited)',
+              }),
+            }
+          : ord
+      ),
+    }))
+  }
+
   public render(): JSX.Element {
     const { orders, initialized, filter } = this.state
     return (
@@ -92,7 +97,11 @@ class App extends React.Component<{}, IAppState> {
         {initialized ? (
           <div>
             {orders.length > 0 ? (
-              <OrderList orders={orders} filter={filter} />
+              <OrderList
+                orders={orders}
+                filter={filter}
+                editOrderCallback={this.editOrder}
+              />
             ) : (
               <p className="title mx-4 text-xl mt-4">Loading...</p>
             )}
@@ -107,4 +116,7 @@ class App extends React.Component<{}, IAppState> {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <App />,
+  document.getElementById('root') || document.createElement('div')
+)

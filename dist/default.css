@@ -637,15 +637,6 @@ video {
   position: relative;
 }
 
-.history-action{
-}
-
-.canceled{
-  border-color: #f56565;
-  opacity: 0.5;
-  color: #f56565;
-}
-
 .appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -7698,16 +7689,22 @@ input{
   top: 4rem;
   left: 1rem;
   z-index: 100;
+  font-size: 0.8rem;
   border-radius: 0.2rem;
-  border-color: #333;
-  background:rgba(0,0,0,0.4);
-  box-shadow: 0 4px 7px rgba(0, 0, 0, .6);
-  .highlight{
-    background: #22292F;
-  }
+  border: 1px solid #666;
+  background:#22292f;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, .8);
 }
 
-.dropdown-options:hover{
+.highlight{
+  background: #2D3748;
+}
+
+.dropdown-options li:hover{
+  cursor: pointer;
+}
+
+.fake-link:hover{
   cursor: pointer;
 }
 
