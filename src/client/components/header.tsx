@@ -23,6 +23,7 @@ export function Header(props: IHeaderProps) {
     } else {
       setOptions(eventOptions)
     }
+    setFilterCallback('')
     setOrderFilter(ev.value)
   }
 

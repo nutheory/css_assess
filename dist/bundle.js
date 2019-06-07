@@ -34920,6 +34920,7 @@ function Header(props) {
         else {
             setOptions(eventOptions);
         }
+        setFilterCallback('');
         setOrderFilter(ev.value);
     }
     function toggleDropdown() {
