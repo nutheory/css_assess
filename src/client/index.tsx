@@ -3,12 +3,19 @@ import * as ReactDOM from 'react-dom'
 import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
 import { OrderList } from './components/orders_list'
+import './styles/default.css'
 
 const endpoint = window.location.host.includes('css-')
   ? 'https://css-assessment.herokuapp.com/api'
   : 'http://localhost:5000/api'
 
-import './styles/default.css'
+const eventOptions = [
+  ['CREATED', 'Cooking Now'],
+  ['COOKED', 'Prepared'],
+  ['DRIVER_RECEIVED', 'Out for Delivery'],
+  ['DELIVERED', 'Delivered'],
+  ['CANCELLED', 'Cancelled'],
+]
 
 export interface IOrder {
   id: string
@@ -22,6 +29,7 @@ export interface IOrder {
 interface IAppState {
   orders: Array<IOrder>
   initialized: boolean
+  filter: string
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -29,6 +37,7 @@ class App extends React.Component<{}, IAppState> {
     super(props)
     this.state = {
       initialized: false,
+      filter: '',
       orders: [],
     }
 
@@ -68,21 +77,22 @@ class App extends React.Component<{}, IAppState> {
   }
 
   public setFilter(filter: string): void {
-    console.log('FILTER', filter)
+    this.setState({ filter })
   }
 
   public render(): JSX.Element {
-    const { orders, initialized } = this.state
+    const { orders, initialized, filter } = this.state
     return (
       <div className="container mx-auto my-8">
         <Header
           handleInitCallback={this.initializeDataStream}
           setFilterCallback={this.setFilter}
+          eventOptions={eventOptions}
         />
         {initialized ? (
           <div>
             {orders.length > 0 ? (
-              <OrderList orders={orders} />
+              <OrderList orders={orders} filter={filter} />
             ) : (
               <p className="title mx-4 text-xl mt-4">Loading...</p>
             )}

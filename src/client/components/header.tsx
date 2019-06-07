@@ -2,28 +2,31 @@ import * as React from 'react'
 
 interface IHeaderProps {
   handleInitCallback: () => void
-  setFilterCallback: (filter: string) => void
+  setFilterCallback: (filter: string | undefined) => void
+  eventOptions: string[][]
 }
 
 export function Header(props: IHeaderProps) {
+  const { handleInitCallback, setFilterCallback, eventOptions } = props
   const [dropdownActive, setDropdownActive] = React.useState(false)
   const [orderFilter, setOrderFilter] = React.useState('')
-  const { handleInitCallback, setFilterCallback } = props
-  const ddOptions = [
-    ['CREATED', 'Cooking Now'],
-    ['COOKED', 'Prepared'],
-    ['DRIVER_RECEIVED', 'Out for Delivery'],
-    ['DELIVERED', 'Delivered'],
-    ['CANCELLED', 'Cancelled'],
-  ]
+  const [options, setOptions] = React.useState(eventOptions)
 
   function handleInputChange(e: React.FormEvent<HTMLInputElement>) {
     const ev = e.currentTarget
-    console.log('EVVV', ev)
+    if (ev.value.length > 0) {
+      setOptions(
+        options.filter(opt =>
+          opt[1].toLowerCase().startsWith(ev.value.toLowerCase())
+        )
+      )
+    } else {
+      setOptions(eventOptions)
+    }
     setOrderFilter(ev.value)
   }
 
-  function toggleDropdown(e: React.SyntheticEvent<EventTarget>) {
+  function toggleDropdown() {
     setDropdownActive(!dropdownActive)
   }
 
@@ -40,7 +43,10 @@ export function Header(props: IHeaderProps) {
   }
 
   function handleDropdownSelection(e: React.SyntheticEvent<EventTarget>) {
-    console.log(e)
+    const { value, name } = (e.target as HTMLButtonElement).dataset
+    setFilterCallback(value)
+    setOrderFilter(name || '')
+    toggleDropdown()
   }
 
   return (
@@ -69,12 +75,13 @@ export function Header(props: IHeaderProps) {
           className={`${dropdownActive ? 'block' : 'hidden'} dropdown-options`}
         >
           <ul>
-            {ddOptions.map(opt => (
+            {options.map(opt => (
               <li
                 key={opt[0]}
                 onClick={handleDropdownSelection}
                 className="text-xl py-1 px-2 hover:bg-black hover:cursor-pointer t-shadow"
                 data-value={opt[0]}
+                data-name={opt[1]}
               >
                 {opt[1]}
               </li>
