@@ -7638,7 +7638,7 @@ input{
 
 .push-button {
   position: relative;
-  width:220px;
+  width: 18rem;
   height:2.4rem;
   text-align:center;
   color:#FFF;
@@ -7701,6 +7701,10 @@ input{
   border: 1px solid #666;
   background:#22292f;
   box-shadow: 0 4px 7px rgba(0, 0, 0, .8);
+}
+
+.t-shadow{
+  text-shadow:#000 0px 1px 5px
 }
 
 .highlight{

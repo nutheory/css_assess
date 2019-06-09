@@ -14,7 +14,7 @@
  - Typescript
    > Im a fan of explicit interfaces to communicate developer intent and make sure
    > people are really thinking carefully with a language that was built
-   > for sloppiness. Plus it beats denoting private methods with underscores
+   > for sloppiness. Plus it beats denoting private methods with underscores.
  - React 
    > Its the cleanest framework out there. Its not the Kitchen-sink solution (Angular), its got a massive and    
    > active community building off its foundation and its new hooks are so clean.

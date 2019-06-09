@@ -14,7 +14,6 @@ io.of('/api').on('connect', socket => {
       setupAPI(socket, io)
     }
   })
-  console.log('Client connected', socket.id)
 })
 
 app.get('/', (req, res) => {

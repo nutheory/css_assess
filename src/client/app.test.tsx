@@ -13,7 +13,7 @@ describe('initializes and can recieve data', () => {
 
   it('initializes with proper state', () => {
     const orderState = appInstance.state
-    expect(orderState.orders.length).toBe(0)
+    expect(orderState.orders.length).toBe(5)
     expect(orderState.filter).toBe('')
     expect(orderState.timer).toBe(0)
     expect(orderState.initialized).toBe(false)

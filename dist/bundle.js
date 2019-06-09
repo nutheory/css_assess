@@ -34921,7 +34921,7 @@ class App extends React.Component {
         this.state = {
             initialized: false,
             filter: '',
-            timer: 0,
+            timer: 5,
             orders: [],
         };
         this.initializeDataStream = this.initializeDataStream.bind(this);
@@ -34972,8 +34972,8 @@ class App extends React.Component {
     render() {
         const { orders, initialized, filter, timer } = this.state;
         return (React.createElement("div", { className: "container mx-auto my-8" },
-            React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter, setCookedCallback: this.setCookedTimer }),
-            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Initialize to start data stream..."))));
+            React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter }),
+            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Click \"Let's get cookin'\" to start order..."))));
     }
 }
 exports.App = App;
@@ -34995,7 +34995,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const helpers_1 = __webpack_require__(/*! ../helpers */ "./src/client/helpers.ts");
 function Header(props) {
-    const { handleInitCallback, setFilterCallback, setCookedCallback } = props;
+    const { handleInitCallback, setFilterCallback } = props;
     const [dropdownActive, setDropdownActive] = React.useState(false);
     const [orderFilter, setOrderFilter] = React.useState('');
     const [cookedTimer, setCookedTimer] = React.useState('');
@@ -35061,23 +35061,18 @@ function Header(props) {
         setOrderFilter(name || '');
         toggleDropdown();
     }
-    function handleCookedChange(e) {
-        const ev = e.currentTarget;
-        setCookedTimer(ev.value);
-        setCookedCallback(parseInt(ev.value));
-    }
     return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header" },
         React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
             "Front-end Engineering Challenge",
             React.createElement("span", { className: "block text-sm" }, "by Derek Rush")),
-        React.createElement("div", { className: "flex-1" },
-            React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Initialize")),
-        React.createElement("div", { className: "relative flex-1", onBlur: closeDropdown },
+        React.createElement("div", { className: "flex-1", onBlur: closeDropdown },
             React.createElement("div", { className: "flex" },
-                React.createElement("input", { className: "my-4 mx-2 block w-12 cooked-input", type: "number", min: "0", placeholder: "Sec", value: cookedTimer, onChange: handleCookedChange }),
-                React.createElement("input", { className: "m-4 block flex-1 filter-input", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleFilterChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed })),
-            React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
-                React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1]))))))));
+                React.createElement("div", { className: "flex-1 relative ml-4" },
+                    React.createElement("input", { className: "mt-4 block w-full md:w-64 float-right filter-input", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleFilterChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
+                    React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
+                        React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1])))))),
+                React.createElement("div", { className: " mx-1" },
+                    React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Let's get Cookin'..."))))));
 }
 exports.Header = Header;
 
@@ -35114,28 +35109,25 @@ function OrderCard(props) {
     return (React.createElement("div", { className: `order-card-basic ${helpers_1.colorizeStatus(eventName)}` }, !showingHistory ? (React.createElement("div", { className: "info-view" },
         React.createElement("div", { className: "history-action text-xs" },
             React.createElement("span", { onClick: toggleHistory, className: "fake-link history-link" }, "History")),
+        React.createElement("div", null, !editStatus ? (React.createElement("p", { className: "status-text font-bold" },
+            helpers_1.humanizeStatus(eventName),
+            React.createElement("span", { onClick: modifyStatus, className: "text-sm text-white fake-link inline-block pl-3 edit-link" }, "edit"))) : (React.createElement("div", null,
+            React.createElement("select", { name: id, className: "text-gray-800 status-edit", value: eventName, onChange: handleStatusChange }, helpers_1.eventOptions.map(eo => (React.createElement("option", { key: `id_${id}_${eo[0]}`, value: eo[0] }, eo[1])))),
+            React.createElement("span", { onClick: modifyStatus, className: "text-sm text-white fake-link hover:underline inline-block pl-3" }, "cancel")))),
         React.createElement("div", null,
-            React.createElement("label", { className: "text-xs" }, "Status"),
-            !editStatus ? (React.createElement("p", { className: "status-text" },
-                helpers_1.humanizeStatus(eventName),
-                React.createElement("span", { onClick: modifyStatus, className: "text-sm text-white fake-link inline-block pl-3 edit-link" }, "edit"))) : (React.createElement("div", null,
-                React.createElement("select", { name: id, className: "text-gray-800 status-edit", value: eventName, onChange: handleStatusChange }, helpers_1.eventOptions.map(eo => (React.createElement("option", { key: `id_${id}_${eo[0]}`, value: eo[0] }, eo[1])))),
-                React.createElement("span", { onClick: modifyStatus, className: "text-sm text-white fake-link hover:underline inline-block pl-3" }, "cancel")))),
-        React.createElement("div", null,
-            React.createElement("label", { className: "text-xs" }, "Destination"),
-            React.createElement("p", null, destination)),
+            React.createElement("p", { className: "t-shadow" }, destination)),
         React.createElement("div", { className: "flex" },
             React.createElement("div", { className: "flex-1" },
-                React.createElement("label", { className: "block text-xs" }, "Name"),
-                React.createElement("p", { className: "block" }, name)),
+                React.createElement("label", { className: "block text-sm text-gray-500" }, "Name"),
+                React.createElement("p", { className: "block t-shadow" }, name)),
             React.createElement("div", null,
-                React.createElement("label", { className: "block text-xs text-right" }, "ID"),
-                React.createElement("p", { className: "block text-right" }, id))))) : (React.createElement("div", { className: "history-view" },
+                React.createElement("label", { className: "block text-sm text-gray-500 text-right" }, "ID"),
+                React.createElement("p", { className: "block text-right t-shadow" }, id))))) : (React.createElement("div", { className: "history-view" },
         React.createElement("div", { className: "history-action text-xs" },
             React.createElement("span", { onClick: toggleHistory, className: "fake-link" }, "Info")),
         history.map((hist, i) => (React.createElement("div", { key: `history_${i}_${id}` },
             React.createElement("div", { className: "mt-2 history-item" },
-                React.createElement("p", null, helpers_1.humanizeStatus(hist.event_name)),
+                React.createElement("p", { className: "font-bold" }, helpers_1.humanizeStatus(hist.event_name)),
                 React.createElement("label", { className: "text-xs" }, helpers_1.dateTimeFormatter(hist.msg_received_at))))))))));
 }
 exports.OrderCard = OrderCard;
@@ -35156,7 +35148,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const order_card_1 = __webpack_require__(/*! ./order_card */ "./src/client/components/order_card.tsx");
 function OrdersList(props) {
-    const { orders, filter, timer, editOrderCallback } = props;
+    const { orders, filter, timer, editOrderCallback, setCookedCallback } = props;
+    const [cookedTimer, setCookedTimer] = React.useState(timer);
     const cookedOrders = orders.filter(ord => ord.event_name === 'COOKED');
     let ordersWithUrgency = [];
     let ordersWithFilter;
@@ -35173,13 +35166,22 @@ function OrdersList(props) {
             }
         }
     }
+    function handleCookedChange(e) {
+        const ev = e.currentTarget;
+        setCookedTimer(parseInt(ev.value));
+        setCookedCallback(parseInt(ev.value));
+    }
     return (React.createElement("div", { className: `flex flex-wrap mx--4` },
-        timer > 0 ? (React.createElement("div", { className: "w-1/4 p-4" },
+        React.createElement("div", { className: "w-full lg:w-1/4 p-4" },
             React.createElement("div", { className: "rtg-bg py-4" },
-                React.createElement("h2", { className: "title mx-4 text-xl" }, "Ready to go"),
+                React.createElement("div", { className: "flex flex-wrap mx-4" },
+                    React.createElement("div", { className: "" },
+                        React.createElement("h2", { className: "title pt-1 text-lg" }, "Prepared within..."),
+                        React.createElement("p", { className: "text-xs" }, "(seconds)")),
+                    React.createElement("input", { className: "ml-8 block w-12 cooked-input", type: "number", min: "0", placeholder: "Sec", value: cookedTimer, onChange: handleCookedChange })),
                 React.createElement("ul", { className: "prepped-list" }, ordersWithUrgency.map(owu => (React.createElement("li", { key: `cooked_${owu.id}`, className: "w-full list-none p-4" },
-                    React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: owu.destination, eventName: owu.event_name, name: owu.name, history: owu.history, id: owu.id, msgReceivedAt: owu.msg_received_at })))))))) : null,
-        React.createElement("ul", { className: `flex flex-wrap ${timer > 0 ? 'w-3/4' : 'w-full'}` }, ordersWithFilter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: `w-full ${timer > 0 ? 'md:w-1/2 lg:w-1/3' : 'md:w-1/3 lg:w-1/4'} list-none p-4` },
+                    React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: owu.destination, eventName: owu.event_name, name: owu.name, history: owu.history, id: owu.id, msgReceivedAt: owu.msg_received_at }))))))),
+        React.createElement("ul", { className: `flex flex-wrap w-full lg:w-3/4` }, ordersWithFilter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: `w-full md:w-1/2 lg:w-1/3 list-none p-4` },
             React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: ord.destination, eventName: ord.event_name, name: ord.name, history: ord.history, id: ord.id, msgReceivedAt: ord.msg_received_at })))))));
 }
 exports.OrdersList = OrdersList;

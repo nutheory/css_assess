@@ -59,9 +59,8 @@ export function OrderCard(props: IOrderProps) {
             </span>
           </div>
           <div>
-            <label className="text-xs">Status</label>
             {!editStatus ? (
-              <p className="status-text">
+              <p className="status-text font-bold">
                 {humanizeStatus(eventName)}
                 <span
                   onClick={modifyStatus}
@@ -94,17 +93,18 @@ export function OrderCard(props: IOrderProps) {
             )}
           </div>
           <div>
-            <label className="text-xs">Destination</label>
-            <p>{destination}</p>
+            <p className="t-shadow">{destination}</p>
           </div>
           <div className="flex">
             <div className="flex-1">
-              <label className="block text-xs">Name</label>
-              <p className="block">{name}</p>
+              <label className="block text-sm text-gray-500">Name</label>
+              <p className="block t-shadow">{name}</p>
             </div>
             <div>
-              <label className="block text-xs text-right">ID</label>
-              <p className="block text-right">{id}</p>
+              <label className="block text-sm text-gray-500 text-right">
+                ID
+              </label>
+              <p className="block text-right t-shadow">{id}</p>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@ export function OrderCard(props: IOrderProps) {
           {history.map((hist, i) => (
             <div key={`history_${i}_${id}`}>
               <div className="mt-2 history-item">
-                <p>{humanizeStatus(hist.event_name)}</p>
+                <p className="font-bold">{humanizeStatus(hist.event_name)}</p>
                 <label className="text-xs">
                   {dateTimeFormatter(hist.msg_received_at)}
                 </label>

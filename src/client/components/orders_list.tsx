@@ -7,10 +7,12 @@ interface IOrdersProps {
   filter: string
   timer: number
   editOrderCallback: (order: Object) => void
+  setCookedCallback: (timer: number | undefined) => void
 }
 
 export function OrdersList(props: IOrdersProps) {
-  const { orders, filter, timer, editOrderCallback } = props
+  const { orders, filter, timer, editOrderCallback, setCookedCallback } = props
+  const [cookedTimer, setCookedTimer] = React.useState(timer)
   const cookedOrders = orders.filter(ord => ord.event_name === 'COOKED')
   let ordersWithUrgency: Array<IOrder> = []
   let ordersWithFilter
@@ -27,37 +29,53 @@ export function OrdersList(props: IOrdersProps) {
       }
     }
   }
+
+  function handleCookedChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const ev = e.currentTarget
+    setCookedTimer(parseInt(ev.value))
+    setCookedCallback(parseInt(ev.value))
+  }
+
   return (
     <div className={`flex flex-wrap mx--4`}>
-      {timer > 0 ? (
-        <div className="w-1/4 p-4">
-          <div className="rtg-bg py-4">
-            <h2 className="title mx-4 text-xl">Ready to go</h2>
-            <ul className="prepped-list">
-              {ordersWithUrgency.map(owu => (
-                <li key={`cooked_${owu.id}`} className="w-full list-none p-4">
-                  <OrderCard
-                    editOrderCallback={editOrderCallback}
-                    destination={owu.destination}
-                    eventName={owu.event_name}
-                    name={owu.name}
-                    history={owu.history}
-                    id={owu.id}
-                    msgReceivedAt={owu.msg_received_at}
-                  />
-                </li>
-              ))}
-            </ul>
+      <div className="w-full lg:w-1/4 p-4">
+        <div className="rtg-bg py-4">
+          <div className="flex flex-wrap mx-4">
+            <div className="">
+              <h2 className="title pt-1 text-lg">Prepared within...</h2>
+              <p className="text-xs">(seconds)</p>
+            </div>
+            <input
+              className="ml-8 block w-12 cooked-input"
+              type="number"
+              min="0"
+              placeholder="Sec"
+              value={cookedTimer}
+              onChange={handleCookedChange}
+            />
           </div>
+          <ul className="prepped-list">
+            {ordersWithUrgency.map(owu => (
+              <li key={`cooked_${owu.id}`} className="w-full list-none p-4">
+                <OrderCard
+                  editOrderCallback={editOrderCallback}
+                  destination={owu.destination}
+                  eventName={owu.event_name}
+                  name={owu.name}
+                  history={owu.history}
+                  id={owu.id}
+                  msgReceivedAt={owu.msg_received_at}
+                />
+              </li>
+            ))}
+          </ul>
         </div>
-      ) : null}
-      <ul className={`flex flex-wrap ${timer > 0 ? 'w-3/4' : 'w-full'}`}>
+      </div>
+      <ul className={`flex flex-wrap w-full lg:w-3/4`}>
         {ordersWithFilter.map((ord, i) => (
           <li
             key={`ev_${i}_${ord.id}`}
-            className={`w-full ${
-              timer > 0 ? 'md:w-1/2 lg:w-1/3' : 'md:w-1/3 lg:w-1/4'
-            } list-none p-4`}
+            className={`w-full md:w-1/2 lg:w-1/3 list-none p-4`}
           >
             <OrderCard
               editOrderCallback={editOrderCallback}

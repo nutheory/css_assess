@@ -23,7 +23,7 @@ export class App extends React.Component<{}, IAppState> {
     this.state = {
       initialized: false,
       filter: '',
-      timer: 0,
+      timer: 5,
       orders: [],
     }
 
@@ -114,7 +114,6 @@ export class App extends React.Component<{}, IAppState> {
         <Header
           handleInitCallback={this.initializeDataStream}
           setFilterCallback={this.setFilter}
-          setCookedCallback={this.setCookedTimer}
         />
         {initialized ? (
           <div>
@@ -122,6 +121,7 @@ export class App extends React.Component<{}, IAppState> {
               <OrdersList
                 orders={orders}
                 filter={filter}
+                setCookedCallback={this.setCookedTimer}
                 editOrderCallback={this.editOrder}
                 timer={timer}
               />
@@ -131,7 +131,7 @@ export class App extends React.Component<{}, IAppState> {
           </div>
         ) : (
           <p className="title mx-4 text-xl mt-4">
-            Initialize to start data stream...
+            Click &quot;Let&apos;s get cookin&apos;&quot; to start order...
           </p>
         )}
       </div>

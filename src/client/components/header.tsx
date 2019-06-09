@@ -4,11 +4,10 @@ import { eventOptions } from '../helpers'
 interface IHeaderProps {
   handleInitCallback: () => void
   setFilterCallback: (filter: string | undefined) => void
-  setCookedCallback: (timer: number | undefined) => void
 }
 
 export function Header(props: IHeaderProps) {
-  const { handleInitCallback, setFilterCallback, setCookedCallback } = props
+  const { handleInitCallback, setFilterCallback } = props
   const [dropdownActive, setDropdownActive] = React.useState(false)
   const [orderFilter, setOrderFilter] = React.useState('')
   const [cookedTimer, setCookedTimer] = React.useState('')
@@ -78,60 +77,50 @@ export function Header(props: IHeaderProps) {
     toggleDropdown()
   }
 
-  function handleCookedChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const ev = e.currentTarget
-    setCookedTimer(ev.value)
-    setCookedCallback(parseInt(ev.value))
-  }
-
   return (
     <header className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header">
       <div className="title mx-4 mt-4 text-xl">
         Front-end Engineering Challenge
         <span className="block text-sm">by Derek Rush</span>
       </div>
-      <div className="flex-1">
-        <div className="push-button blue-push" onClick={handleInitCallback}>
-          Initialize
-        </div>
-      </div>
-      <div className="relative flex-1" onBlur={closeDropdown}>
+      <div className="flex-1" onBlur={closeDropdown}>
         <div className="flex">
-          <input
-            className="my-4 mx-2 block w-12 cooked-input"
-            type="number"
-            min="0"
-            placeholder="Sec"
-            value={cookedTimer}
-            onChange={handleCookedChange}
-          />
-          <input
-            className="m-4 block flex-1 filter-input"
-            type="text"
-            placeholder="Filter"
-            value={orderFilter}
-            onChange={handleFilterChange}
-            onClick={toggleDropdown}
-            onKeyDown={onInputKeyPressed}
-          />
-        </div>
-        <div
-          className={`${dropdownActive ? 'block' : 'hidden'} dropdown-options`}
-          ref={filterDropdownList}
-        >
-          <ul>
-            {options.map(opt => (
-              <li
-                key={opt[0]}
-                onClick={handleDropdownSelection}
-                className="p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow"
-                data-value={opt[0]}
-                data-name={opt[1]}
-              >
-                {opt[1]}
-              </li>
-            ))}
-          </ul>
+          <div className="flex-1 relative ml-4">
+            <input
+              className="mt-4 block w-full md:w-64 float-right filter-input"
+              type="text"
+              placeholder="Filter"
+              value={orderFilter}
+              onChange={handleFilterChange}
+              onClick={toggleDropdown}
+              onKeyDown={onInputKeyPressed}
+            />
+            <div
+              className={`${
+                dropdownActive ? 'block' : 'hidden'
+              } dropdown-options`}
+              ref={filterDropdownList}
+            >
+              <ul>
+                {options.map(opt => (
+                  <li
+                    key={opt[0]}
+                    onClick={handleDropdownSelection}
+                    className="p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow"
+                    data-value={opt[0]}
+                    data-name={opt[1]}
+                  >
+                    {opt[1]}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className=" mx-1">
+            <div className="push-button blue-push" onClick={handleInitCallback}>
+              Let&apos;s get Cookin&apos;...
+            </div>
+          </div>
         </div>
       </div>
     </header>

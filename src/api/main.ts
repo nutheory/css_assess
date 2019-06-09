@@ -20,9 +20,7 @@ const setupAPI = async (socket, io) => {
     if (mutableAccumulator.length === 0) {
       clearInterval(timer)
       mutableAccumulator = orders
-      socket.on('disconnect', () =>
-        console.log('Client disconnected', socket.id)
-      )
+      socket.on('disconnect', () => null)
     }
   }, 1000)
 }
