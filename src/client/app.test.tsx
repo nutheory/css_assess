@@ -13,9 +13,9 @@ describe('initializes and can recieve data', () => {
 
   it('initializes with proper state', () => {
     const orderState = appInstance.state
-    expect(orderState.orders.length).toBe(5)
+    expect(orderState.orders.length).toBe(0)
     expect(orderState.filter).toBe('')
-    expect(orderState.timer).toBe(0)
+    expect(orderState.timer).toBe(5)
     expect(orderState.initialized).toBe(false)
   })
 
@@ -78,7 +78,7 @@ describe('updating states through callbacks', () => {
   })
 
   it('updates timer', () => {
-    expect(stateBefore.timer).toBe(0)
+    expect(stateBefore.timer).toBe(5)
     appInstance.setCookedTimer(15)
     const orderState = appInstance.state
     expect(orderState.timer).toBe(15)

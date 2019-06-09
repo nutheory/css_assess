@@ -80,8 +80,8 @@ export function Header(props: IHeaderProps) {
   return (
     <header className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header">
       <div className="title mx-4 mt-4 text-xl">
-        Front-end Engineering Challenge
-        <span className="block text-sm">by Derek Rush</span>
+        City Storage Systems
+        <span className="block text-sm">CloudKitchens Dashboard</span>
       </div>
       <div className="flex-1" onBlur={closeDropdown}>
         <div className="flex">
@@ -118,7 +118,7 @@ export function Header(props: IHeaderProps) {
           </div>
           <div className=" mx-1">
             <div className="push-button blue-push" onClick={handleInitCallback}>
-              Let&apos;s get Cookin&apos;...
+              Open kitchen
             </div>
           </div>
         </div>

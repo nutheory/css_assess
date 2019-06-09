@@ -131,7 +131,7 @@ export class App extends React.Component<{}, IAppState> {
           </div>
         ) : (
           <p className="title mx-4 text-xl mt-4">
-            Click &quot;Let&apos;s get cookin&apos;&quot; to start order...
+            Click Open Kitchen button to start accepting food oders...
           </p>
         )}
       </div>

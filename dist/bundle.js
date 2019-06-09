@@ -34973,7 +34973,7 @@ class App extends React.Component {
         const { orders, initialized, filter, timer } = this.state;
         return (React.createElement("div", { className: "container mx-auto my-8" },
             React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter }),
-            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Click \"Let's get cookin'\" to start order..."))));
+            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Click Open Kitchen button to start accepting food oders..."))));
     }
 }
 exports.App = App;
@@ -35063,8 +35063,8 @@ function Header(props) {
     }
     return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header" },
         React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
-            "Front-end Engineering Challenge",
-            React.createElement("span", { className: "block text-sm" }, "by Derek Rush")),
+            "City Storage Systems",
+            React.createElement("span", { className: "block text-sm" }, "CloudKitchens Dashboard")),
         React.createElement("div", { className: "flex-1", onBlur: closeDropdown },
             React.createElement("div", { className: "flex" },
                 React.createElement("div", { className: "flex-1 relative ml-4" },
@@ -35072,7 +35072,7 @@ function Header(props) {
                     React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
                         React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1])))))),
                 React.createElement("div", { className: " mx-1" },
-                    React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Let's get Cookin'..."))))));
+                    React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Open kitchen"))))));
 }
 exports.Header = Header;
 
