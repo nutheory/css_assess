@@ -9,7 +9,7 @@
  - Start dev: npm run start-dev 
  - Browse to http://localhost:5000
 
-## Main Tooling
+## Main Tooling w/ reasons for use
 
  - Typescript
    > Im a fan of explicit interfaces to communicate developer intent and make sure
@@ -29,7 +29,7 @@
 
 #### Styling
  - TailwindCSS 
-	> CSS in JS is awesome. Rapid prototyping of styles with great
+	> CSS in JS is awesome. Provides rapid prototyping of styles with great
 	> defaults that works great for component composition as your project
 	> grows and get more defined.
 
