@@ -1,7 +1,7 @@
 {
   "name": "css_assessment",
   "version": "1.0.0",
-  "description": "",
+  "description": "CSS Assessment Test",
   "main": "index.js",
   "scripts": {
     "start": "node \"./index.js\"",
@@ -10,13 +10,13 @@
     "format": "prettier --write \"src/**/*.js\"",
     "build": "webpack --mode production",
     "eslint": "eslint . --ext .js,.ts,.tsx",
-    "test": "jest"
+    "test": "jest",
+    "test:w": "jest --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/enzyme": "3.9.3",
     "@types/jest": "24.0.13",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",
@@ -30,13 +30,17 @@
     "@babel/preset-env": "7.4.5",
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.3.3",
+    "@types/cheerio": "0.22.11",
+    "@types/enzyme": "3.9.3",
     "@typescript-eslint/eslint-plugin": "1.9.0",
     "awesome-typescript-loader": "5.2.1",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.8.0",
+    "babel-plugin-react-remove-properties": "0.3.0",
     "css-loader": "2.1.1",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
+    "enzyme-to-json": "3.3.5",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-loader": "2.1.2",
@@ -44,6 +48,7 @@
     "eslint-plugin-react": "7.13.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.8.0",
+    "jest-dom": "3.4.0",
     "mini-css-extract-plugin": "^0.4.0",
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.5.0",
@@ -63,7 +68,7 @@
       "\\.(css|less)$": "identity-obj-proxy"
     },
     "setupFilesAfterEnv": [
-      "./src/client/setupTests.ts"
+      "./src/client/setup_tests.ts"
     ]
   }
 }

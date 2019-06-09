@@ -1,19 +1,21 @@
 import * as React from 'react'
+import { eventOptions } from '../helpers'
 
 interface IHeaderProps {
   handleInitCallback: () => void
   setFilterCallback: (filter: string | undefined) => void
-  eventOptions: string[][]
+  setCookedCallback: (timer: number | undefined) => void
 }
 
 export function Header(props: IHeaderProps) {
-  const { handleInitCallback, setFilterCallback, eventOptions } = props
+  const { handleInitCallback, setFilterCallback, setCookedCallback } = props
   const [dropdownActive, setDropdownActive] = React.useState(false)
   const [orderFilter, setOrderFilter] = React.useState('')
+  const [cookedTimer, setCookedTimer] = React.useState('')
   const [options, setOptions] = React.useState(eventOptions)
   const filterDropdownList = React.useRef<HTMLDivElement>(null)
 
-  function handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+  function handleFilterChange(e: React.FormEvent<HTMLInputElement>) {
     const ev = e.currentTarget
     if (ev.value.length > 0) {
       setOptions(
@@ -76,6 +78,12 @@ export function Header(props: IHeaderProps) {
     toggleDropdown()
   }
 
+  function handleCookedChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const ev = e.currentTarget
+    setCookedTimer(ev.value)
+    setCookedCallback(parseInt(ev.value))
+  }
+
   return (
     <header className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800">
       <div className="title mx-4 mt-4 text-xl">
@@ -87,17 +95,27 @@ export function Header(props: IHeaderProps) {
           Initialize
         </div>
       </div>
-      <div className="relative w-1/4 lg:w-1/5 mr-8" onBlur={closeDropdown}>
-        <input
-          className="m-4"
-          name="name"
-          type="text"
-          placeholder="Filter"
-          value={orderFilter}
-          onChange={handleInputChange}
-          onClick={toggleDropdown}
-          onKeyDown={onInputKeyPressed}
-        />
+      <div className="relative flex-1" onBlur={closeDropdown}>
+        <div className="flex">
+          <input
+            className="my-4 mx-2 block w-12"
+            data-testid="cooked-input"
+            type="number"
+            placeholder="Sec"
+            value={cookedTimer}
+            onChange={handleCookedChange}
+          />
+          <input
+            className="m-4 block flex-1"
+            data-testid="filter-input"
+            type="text"
+            placeholder="Filter"
+            value={orderFilter}
+            onChange={handleFilterChange}
+            onClick={toggleDropdown}
+            onKeyDown={onInputKeyPressed}
+          />
+        </div>
         <div
           className={`${dropdownActive ? 'block' : 'hidden'} dropdown-options`}
           ref={filterDropdownList}

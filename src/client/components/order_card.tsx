@@ -1,6 +1,11 @@
 import * as React from 'react'
 import { IOrder } from '../interfaces'
-import { humanizeStatus, colorizeStatus, eventOptions } from '../helpers'
+import {
+  humanizeStatus,
+  colorizeStatus,
+  eventOptions,
+  dateTimeFormatter,
+} from '../helpers'
 
 interface IOrderProps {
   eventName: string
@@ -8,6 +13,7 @@ interface IOrderProps {
   name: string
   id: string
   history: Array<IOrder>
+  msg_received_at: string
   editOrderCallback: (order: Object) => void
 }
 
@@ -17,7 +23,15 @@ interface IOrderState {
 }
 
 export function OrderCard(props: IOrderProps) {
-  const { eventName, destination, name, id, history, editOrderCallback } = props
+  const {
+    eventName,
+    destination,
+    name,
+    id,
+    history,
+    msg_received_at,
+    editOrderCallback,
+  } = props
   const [showingHistory, setShowingHistory] = React.useState(false)
   const [editStatus, setEditStatus] = React.useState(false)
 
@@ -95,16 +109,14 @@ export function OrderCard(props: IOrderProps) {
       ) : (
         <div>
           <div className="history-action text-xs">
-            <a href="#" onClick={toggleHistory}>
-              Info
-            </a>
+            <span onClick={toggleHistory}>Info</span>
           </div>
           {history.map((hist, i) => (
             <div key={`history_${i}_${id}`}>
               <div className="mt-2">
                 <p>{humanizeStatus(hist.event_name)}</p>
                 <label className="text-xs">
-                  Sent {hist.sent_at_second} seconds ago
+                  {dateTimeFormatter(hist.msg_received_at)}
                 </label>
               </div>
             </div>

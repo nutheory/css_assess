@@ -33,3 +33,6 @@ export const eventOptions = [
   ['DELIVERED', 'Delivered'],
   ['CANCELLED', 'Cancelled'],
 ]
+
+export const dateTimeFormatter = (time: string): string =>
+  new Date(time).toLocaleString().split(' GMT')[0]

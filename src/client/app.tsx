@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom'
 import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
 import { OrderList } from './components/orders_list'
-import { eventOptions } from './helpers'
 import { IOrder } from './interfaces'
 import './styles/default.css'
 
@@ -15,6 +14,7 @@ interface IAppState {
   orders: Array<IOrder>
   initialized: boolean
   filter: string
+  timer: number
 }
 
 export class App extends React.Component<{}, IAppState> {
@@ -23,11 +23,14 @@ export class App extends React.Component<{}, IAppState> {
     this.state = {
       initialized: false,
       filter: '',
+      timer: 0,
       orders: [],
     }
 
     this.initializeDataStream = this.initializeDataStream.bind(this)
+    this.processIncoming = this.processIncoming.bind(this)
     this.setFilter = this.setFilter.bind(this)
+    this.setCookedTimer = this.setCookedTimer.bind(this)
     this.editOrder = this.editOrder.bind(this)
   }
 
@@ -35,35 +38,17 @@ export class App extends React.Component<{}, IAppState> {
     this.setState({ orders: [], initialized: true })
     const socket = ioClient.connect(endpoint)
     socket.emit('initialize', { event: 'INIT' })
-    socket.on('FromAPI', responses => {
-      for (let resOrder of responses) {
-        const { orders } = this.state
-        if (resOrder.event_name === 'CREATED') {
-          this.setState(prevState => ({
-            orders: prevState.orders.concat({
-              ...resOrder,
-              history: [resOrder],
-            }),
-          }))
-        } else {
-          this.setState(prevState => ({
-            orders: prevState.orders.map(ord =>
-              ord.id === resOrder.id
-                ? {
-                    ...ord,
-                    event_name: resOrder.event_name,
-                    history: ord.history.concat({ ...resOrder, active: true }),
-                  }
-                : ord
-            ),
-          }))
-        }
-      }
+    socket.on('FromAPI', orders => {
+      this.processIncoming(orders)
     })
   }
 
   public setFilter(filter: string): void {
     this.setState({ filter })
+  }
+
+  public setCookedTimer(timer: number): void {
+    this.setState({ timer })
   }
 
   public editOrder(order: IOrder): void {
@@ -74,6 +59,7 @@ export class App extends React.Component<{}, IAppState> {
           ? {
               ...ord,
               event_name: order.event_name,
+              msg_received_at: Date.now(),
               history: ord.history.concat({
                 ...ord,
                 event_name: order.event_name,
@@ -85,14 +71,50 @@ export class App extends React.Component<{}, IAppState> {
     }))
   }
 
+  public processIncoming(incomingOrders: Array<IOrder>) {
+    for (let resOrder of incomingOrders) {
+      const { orders } = this.state
+      if (resOrder.event_name === 'CREATED') {
+        this.setState(prevState => ({
+          orders: prevState.orders.concat({
+            ...resOrder,
+            history: [
+              {
+                ...resOrder,
+                msg_received_at: Date.now(),
+              },
+            ],
+            msg_received_at: Date.now(),
+          }),
+        }))
+      } else {
+        this.setState(prevState => ({
+          orders: prevState.orders.map(ord =>
+            ord.id === resOrder.id
+              ? {
+                  ...ord,
+                  event_name: resOrder.event_name,
+                  history: ord.history.concat({
+                    ...resOrder,
+                    msg_received_at: Date.now(),
+                  }),
+                  msg_received_at: Date.now(),
+                }
+              : ord
+          ),
+        }))
+      }
+    }
+  }
+
   public render(): JSX.Element {
-    const { orders, initialized, filter } = this.state
+    const { orders, initialized, filter, timer } = this.state
     return (
       <div className="container mx-auto my-8">
         <Header
           handleInitCallback={this.initializeDataStream}
           setFilterCallback={this.setFilter}
-          eventOptions={eventOptions}
+          setCookedCallback={this.setCookedTimer}
         />
         {initialized ? (
           <div>
@@ -101,6 +123,7 @@ export class App extends React.Component<{}, IAppState> {
                 orders={orders}
                 filter={filter}
                 editOrderCallback={this.editOrder}
+                timer={timer}
               />
             ) : (
               <p className="title mx-4 text-xl mt-4">Loading...</p>

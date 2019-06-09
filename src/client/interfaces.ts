@@ -5,4 +5,5 @@ export interface IOrder {
   event_name: string
   history: Array<IOrder>
   sent_at_second: number | string
+  msg_received_at: number
 }
