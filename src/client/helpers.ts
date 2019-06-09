@@ -34,5 +34,5 @@ export const eventOptions = [
   ['CANCELLED', 'Cancelled'],
 ]
 
-export const dateTimeFormatter = (time: string): string =>
+export const dateTimeFormatter = (time: number): string =>
   new Date(time).toLocaleString().split(' GMT')[0]

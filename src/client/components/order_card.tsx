@@ -13,7 +13,7 @@ interface IOrderProps {
   name: string
   id: string
   history: Array<IOrder>
-  msg_received_at: string
+  msg_received_at: number
   editOrderCallback: (order: Object) => void
 }
 
