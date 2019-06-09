@@ -35066,7 +35066,7 @@ function Header(props) {
         setCookedTimer(ev.value);
         setCookedCallback(parseInt(ev.value));
     }
-    return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800" },
+    return (React.createElement("header", { "data-testid": "main-header", className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800" },
         React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
             "Front-end Engineering Challenge",
             React.createElement("span", { className: "block text-sm" }, "by Derek Rush")),

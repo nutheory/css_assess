@@ -85,7 +85,10 @@ export function Header(props: IHeaderProps) {
   }
 
   return (
-    <header className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800">
+    <header
+      data-testid="main-header"
+      className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800"
+    >
       <div className="title mx-4 mt-4 text-xl">
         Front-end Engineering Challenge
         <span className="block text-sm">by Derek Rush</span>
