@@ -35074,7 +35074,7 @@ function Header(props) {
             React.createElement("div", { className: "push_button blue_push", onClick: handleInitCallback }, "Initialize")),
         React.createElement("div", { className: "relative flex-1", onBlur: closeDropdown },
             React.createElement("div", { className: "flex" },
-                React.createElement("input", { className: "my-4 mx-2 block w-12", "data-testid": "cooked-input", type: "number", placeholder: "Sec", value: cookedTimer, onChange: handleCookedChange }),
+                React.createElement("input", { className: "my-4 mx-2 block w-12", "data-testid": "cooked-input", type: "number", min: "0", placeholder: "Sec", value: cookedTimer, onChange: handleCookedChange }),
                 React.createElement("input", { className: "m-4 block flex-1", "data-testid": "filter-input", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleFilterChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed })),
             React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
                 React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1]))))))));

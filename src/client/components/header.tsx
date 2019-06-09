@@ -101,6 +101,7 @@ export function Header(props: IHeaderProps) {
             className="my-4 mx-2 block w-12"
             data-testid="cooked-input"
             type="number"
+            min="0"
             placeholder="Sec"
             value={cookedTimer}
             onChange={handleCookedChange}
