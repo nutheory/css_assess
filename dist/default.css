@@ -7692,9 +7692,9 @@ input{
 .dropdown-options{
   position: absolute;
   max-height: 12rem;
-  width: 100%;
+  width: 70%;
   top: 4rem;
-  left: 1rem;
+  left: 5rem;
   z-index: 100;
   font-size: 0.8rem;
   border-radius: 0.2rem;
