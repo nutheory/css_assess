@@ -34973,7 +34973,7 @@ class App extends React.Component {
         const { orders, initialized, filter, timer } = this.state;
         return (React.createElement("div", { className: "container mx-auto my-8" },
             React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter }),
-            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Click Open Kitchen button to start accepting food oders..."))));
+            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "mx-4 text-xl mt-4" }, "Click the Open Kitchen button above to start accepting food orders."))));
     }
 }
 exports.App = App;
@@ -35072,7 +35072,7 @@ function Header(props) {
                     React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
                         React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1])))))),
                 React.createElement("div", { className: " mx-1" },
-                    React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Open kitchen"))))));
+                    React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Open Kitchen"))))));
 }
 exports.Header = Header;
 

@@ -118,7 +118,7 @@ export function Header(props: IHeaderProps) {
           </div>
           <div className=" mx-1">
             <div className="push-button blue-push" onClick={handleInitCallback}>
-              Open kitchen
+              Open Kitchen
             </div>
           </div>
         </div>
