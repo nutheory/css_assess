@@ -9,7 +9,7 @@ interface IOrdersProps {
   editOrderCallback: (order: Object) => void
 }
 
-export function OrderList(props: IOrdersProps) {
+export function OrdersList(props: IOrdersProps) {
   const { orders, filter, timer, editOrderCallback } = props
   const cookedOrders = orders.filter(ord => ord.event_name === 'COOKED')
   let ordersWithUrgency: Array<IOrder> = []
@@ -33,7 +33,7 @@ export function OrderList(props: IOrdersProps) {
         <div className="w-1/4 p-4">
           <div className="rtg-bg py-4">
             <h2 className="title mx-4 text-xl">Ready to go</h2>
-            <ul>
+            <ul className="prepped-list">
               {ordersWithUrgency.map(owu => (
                 <li key={`cooked_${owu.id}`} className="w-full list-none p-4">
                   <OrderCard
@@ -43,7 +43,7 @@ export function OrderList(props: IOrdersProps) {
                     name={owu.name}
                     history={owu.history}
                     id={owu.id}
-                    msg_received_at={owu.msg_received_at}
+                    msgReceivedAt={owu.msg_received_at}
                   />
                 </li>
               ))}
@@ -66,7 +66,7 @@ export function OrderList(props: IOrdersProps) {
               name={ord.name}
               history={ord.history}
               id={ord.id}
-              msg_received_at={ord.msg_received_at}
+              msgReceivedAt={ord.msg_received_at}
             />
           </li>
         ))}

@@ -85,24 +85,20 @@ export function Header(props: IHeaderProps) {
   }
 
   return (
-    <header
-      data-testid="main-header"
-      className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800"
-    >
+    <header className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header">
       <div className="title mx-4 mt-4 text-xl">
         Front-end Engineering Challenge
         <span className="block text-sm">by Derek Rush</span>
       </div>
       <div className="flex-1">
-        <div className="push_button blue_push" onClick={handleInitCallback}>
+        <div className="push-button blue-push" onClick={handleInitCallback}>
           Initialize
         </div>
       </div>
       <div className="relative flex-1" onBlur={closeDropdown}>
         <div className="flex">
           <input
-            className="my-4 mx-2 block w-12"
-            data-testid="cooked-input"
+            className="my-4 mx-2 block w-12 cooked-input"
             type="number"
             min="0"
             placeholder="Sec"
@@ -110,8 +106,7 @@ export function Header(props: IHeaderProps) {
             onChange={handleCookedChange}
           />
           <input
-            className="m-4 block flex-1"
-            data-testid="filter-input"
+            className="m-4 block flex-1 filter-input"
             type="text"
             placeholder="Filter"
             value={orderFilter}

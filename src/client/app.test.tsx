@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { shallow, mount } from 'enzyme'
-import { orderStream } from './test_utils/mock_data'
-import { findByDataTestId } from './test_utils/helpers'
+import { orderStream } from './__mocks__/server_data'
 import { App } from './app'
 
 describe('initializes and can recieve data', () => {
@@ -35,7 +34,6 @@ describe('initializes and can recieve data', () => {
 
 describe('editing existing orders', () => {
   let component, appInstance, orderUpdate, stateBefore
-
   beforeEach(() => {
     component = shallow(<App />)
     appInstance = component.instance()
@@ -66,7 +64,6 @@ describe('editing existing orders', () => {
 
 describe('updating states through callbacks', () => {
   let component, appInstance, stateBefore
-
   beforeEach(() => {
     component = shallow(<App />)
     appInstance = component.instance()
@@ -95,6 +92,6 @@ describe('visuals', () => {
   })
 
   it('renders a header and intro text', () => {
-    expect(findByDataTestId(component, 'main-header').length).toBe(1)
+    expect(component.find('header.main-header').length).toBe(1)
   })
 })

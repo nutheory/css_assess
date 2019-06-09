@@ -13,7 +13,7 @@ interface IOrderProps {
   name: string
   id: string
   history: Array<IOrder>
-  msg_received_at: number
+  msgReceivedAt: number
   editOrderCallback: (order: Object) => void
 }
 
@@ -29,7 +29,7 @@ export function OrderCard(props: IOrderProps) {
     name,
     id,
     history,
-    msg_received_at,
+    msgReceivedAt,
     editOrderCallback,
   } = props
   const [showingHistory, setShowingHistory] = React.useState(false)
@@ -52,9 +52,11 @@ export function OrderCard(props: IOrderProps) {
   return (
     <div className={`order-card-basic ${colorizeStatus(eventName)}`}>
       {!showingHistory ? (
-        <div>
+        <div className="info-view">
           <div className="history-action text-xs">
-            <span onClick={toggleHistory}>History</span>
+            <span onClick={toggleHistory} className="fake-link history-link">
+              History
+            </span>
           </div>
           <div>
             <label className="text-xs">Status</label>
@@ -63,7 +65,7 @@ export function OrderCard(props: IOrderProps) {
                 {humanizeStatus(eventName)}
                 <span
                   onClick={modifyStatus}
-                  className="text-sm text-white fake-link hover:underline inline-block pl-3"
+                  className="text-sm text-white fake-link inline-block pl-3 edit-link"
                 >
                   edit
                 </span>
@@ -72,7 +74,7 @@ export function OrderCard(props: IOrderProps) {
               <div>
                 <select
                   name={id}
-                  className="text-gray-800"
+                  className="text-gray-800 status-edit"
                   value={eventName}
                   onChange={handleStatusChange}
                 >
@@ -107,13 +109,15 @@ export function OrderCard(props: IOrderProps) {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="history-view">
           <div className="history-action text-xs">
-            <span onClick={toggleHistory}>Info</span>
+            <span onClick={toggleHistory} className="fake-link">
+              Info
+            </span>
           </div>
           {history.map((hist, i) => (
             <div key={`history_${i}_${id}`}>
-              <div className="mt-2">
+              <div className="mt-2 history-item">
                 <p>{humanizeStatus(hist.event_name)}</p>
                 <label className="text-xs">
                   {dateTimeFormatter(hist.msg_received_at)}

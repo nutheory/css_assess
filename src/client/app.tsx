@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
-import { OrderList } from './components/orders_list'
+import { OrdersList } from './components/orders_list'
 import { IOrder } from './interfaces'
 import './styles/default.css'
 
@@ -119,7 +119,7 @@ export class App extends React.Component<{}, IAppState> {
         {initialized ? (
           <div>
             {orders.length > 0 ? (
-              <OrderList
+              <OrdersList
                 orders={orders}
                 filter={filter}
                 editOrderCallback={this.editOrder}
