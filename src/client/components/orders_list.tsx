@@ -27,7 +27,6 @@ export function OrderList(props: IOrdersProps) {
       }
     }
   }
-  console.log('ordersWithUrgency', ordersWithUrgency)
   return (
     <div className={`flex flex-wrap mx--4`}>
       {timer > 0 ? (

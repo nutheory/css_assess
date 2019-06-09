@@ -35173,7 +35173,6 @@ function OrderList(props) {
             }
         }
     }
-    console.log('ordersWithUrgency', ordersWithUrgency);
     return (React.createElement("div", { className: `flex flex-wrap mx--4` },
         timer > 0 ? (React.createElement("div", { className: "w-1/4 p-4" },
             React.createElement("div", { className: "rtg-bg py-4" },
