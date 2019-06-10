@@ -44,9 +44,7 @@ attribute on the order object. You can access the order history with the link in
 upper right corner of the card. You can edit the status in-place and see your edit
 reflected immediately in the order info and history.
 
-The filter responds to both the keyboard and pointer, just delete the text to "show all". If 
-you enter a number into the "Sec" field in the header you will see a "Ready to go" area in 
-the list that will populate with "COOKED" items as needed.
+The filter responds to both the keyboard and pointer, just delete the text to "show all". The timer in the "prepared within" area on the left side of the order list can be edited to change the TTL time of prepared orders in that section.
 
 
 ### Thank you for your consideration.
