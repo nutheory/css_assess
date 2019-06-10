@@ -35068,9 +35068,10 @@ function Header(props) {
         React.createElement("div", { className: "flex-1", onBlur: closeDropdown },
             React.createElement("div", { className: "flex" },
                 React.createElement("div", { className: "flex-1 relative ml-4" },
-                    React.createElement("input", { className: "mt-4 block w-full md:w-64 float-right filter-input", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleFilterChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
-                    React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
-                        React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1])))))),
+                    React.createElement("div", { className: "relative w-full md:w-64 float-right" },
+                        React.createElement("input", { className: "mt-4 block w-full md:w-64 float-right filter-input", type: "text", placeholder: "Filter", value: orderFilter, onChange: handleFilterChange, onClick: toggleDropdown, onKeyDown: onInputKeyPressed }),
+                        React.createElement("div", { className: `${dropdownActive ? 'block' : 'hidden'} dropdown-options`, ref: filterDropdownList },
+                            React.createElement("ul", null, options.map(opt => (React.createElement("li", { key: opt[0], onClick: handleDropdownSelection, className: "p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow", "data-value": opt[0], "data-name": opt[1] }, opt[1]))))))),
                 React.createElement("div", { className: " mx-1" },
                     React.createElement("div", { className: "push-button blue-push", onClick: handleInitCallback }, "Open Kitchen"))))));
 }

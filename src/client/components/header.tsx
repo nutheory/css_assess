@@ -86,34 +86,36 @@ export function Header(props: IHeaderProps) {
       <div className="flex-1" onBlur={closeDropdown}>
         <div className="flex">
           <div className="flex-1 relative ml-4">
-            <input
-              className="mt-4 block w-full md:w-64 float-right filter-input"
-              type="text"
-              placeholder="Filter"
-              value={orderFilter}
-              onChange={handleFilterChange}
-              onClick={toggleDropdown}
-              onKeyDown={onInputKeyPressed}
-            />
-            <div
-              className={`${
-                dropdownActive ? 'block' : 'hidden'
-              } dropdown-options`}
-              ref={filterDropdownList}
-            >
-              <ul>
-                {options.map(opt => (
-                  <li
-                    key={opt[0]}
-                    onClick={handleDropdownSelection}
-                    className="p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow"
-                    data-value={opt[0]}
-                    data-name={opt[1]}
-                  >
-                    {opt[1]}
-                  </li>
-                ))}
-              </ul>
+            <div className="relative w-full md:w-64 float-right">
+              <input
+                className="mt-4 block w-full md:w-64 float-right filter-input"
+                type="text"
+                placeholder="Filter"
+                value={orderFilter}
+                onChange={handleFilterChange}
+                onClick={toggleDropdown}
+                onKeyDown={onInputKeyPressed}
+              />
+              <div
+                className={`${
+                  dropdownActive ? 'block' : 'hidden'
+                } dropdown-options`}
+                ref={filterDropdownList}
+              >
+                <ul>
+                  {options.map(opt => (
+                    <li
+                      key={opt[0]}
+                      onClick={handleDropdownSelection}
+                      className="p-2 hover:bg-gray-800 hover:cursor-pointer t-shadow"
+                      data-value={opt[0]}
+                      data-name={opt[1]}
+                    >
+                      {opt[1]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
           <div className=" mx-1">

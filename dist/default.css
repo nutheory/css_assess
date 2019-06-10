@@ -7638,7 +7638,7 @@ input{
 
 .push-button {
   position: relative;
-  width: 18rem;
+  width: 14rem;
   height:2.4rem;
   text-align:center;
   color:#FFF;
@@ -7692,9 +7692,9 @@ input{
 .dropdown-options{
   position: absolute;
   max-height: 12rem;
-  width: 70%;
+  width: 100%;
   top: 4rem;
-  left: 5rem;
+  left: 0rem;
   z-index: 100;
   font-size: 0.8rem;
   border-radius: 0.2rem;
