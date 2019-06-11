@@ -35123,7 +35123,7 @@ function OrderCard(props) {
                 React.createElement("p", { className: "block t-shadow" }, name)),
             React.createElement("div", null,
                 React.createElement("label", { className: "block text-sm text-gray-500 text-right" }, "ID"),
-                React.createElement("p", { className: "block text-right t-shadow" }, id))))) : (React.createElement("div", { className: "history-view" },
+                React.createElement("p", { className: "block text-right t-shadow" }, id))))) : (React.createElement("div", { className: "history-view hidden" },
         React.createElement("div", { className: "history-action text-xs" },
             React.createElement("span", { onClick: toggleHistory, className: "fake-link" }, "Info")),
         history.map((hist, i) => (React.createElement("div", { key: `history_${i}_${id}` },
@@ -35182,7 +35182,7 @@ function OrdersList(props) {
                     React.createElement("input", { className: "ml-8 block w-12 cooked-input", type: "number", min: "0", placeholder: "Sec", value: cookedTimer, onChange: handleCookedChange })),
                 React.createElement("ul", { className: "prepped-list" }, ordersWithUrgency.map(owu => (React.createElement("li", { key: `cooked_${owu.id}`, className: "w-full list-none p-4" },
                     React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: owu.destination, eventName: owu.event_name, name: owu.name, history: owu.history, id: owu.id, msgReceivedAt: owu.msg_received_at }))))))),
-        React.createElement("ul", { className: `flex flex-wrap w-full lg:w-3/4` }, ordersWithFilter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: `w-full md:w-1/2 lg:w-1/3 list-none p-4` },
+        React.createElement("ul", { className: `flex self-start flex-wrap w-full lg:w-3/4` }, ordersWithFilter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: `w-full md:w-1/2 lg:w-1/3 list-none self-start overflow-hidden p-4` },
             React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: ord.destination, eventName: ord.event_name, name: ord.name, history: ord.history, id: ord.id, msgReceivedAt: ord.msg_received_at })))))));
 }
 exports.OrdersList = OrdersList;
