@@ -75,7 +75,7 @@ export function OrdersList(props: IOrdersProps) {
         {ordersWithFilter.map((ord, i) => (
           <li
             key={`ev_${i}_${ord.id}`}
-            className={`w-full md:w-1/2 lg:w-1/3 list-none self-start overflow-hidden p-4`}
+            className={`w-full md:w-1/2 lg:w-1/3 list-none p-4`}
           >
             <OrderCard
               editOrderCallback={editOrderCallback}

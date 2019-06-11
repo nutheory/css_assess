@@ -109,7 +109,7 @@ export function OrderCard(props: IOrderProps) {
           </div>
         </div>
       ) : (
-        <div className="history-view hidden">
+        <div className="history-view">
           <div className="history-action text-xs">
             <span onClick={toggleHistory} className="fake-link">
               Info
