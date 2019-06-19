@@ -9,7 +9,7 @@
  - Start dev: npm run start-dev 
  - Browse to http://localhost:5000
 
-## Main Tooling w/ reasons for use
+## Tooling
 
  - Typescript
  - React 
