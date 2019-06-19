@@ -1,6 +1,4 @@
 # Front-end Engineering Dashboard Challenge
-
-### LIVE on Heroku ... https://css-assessment.herokuapp.com/
  
  ## Setup 
  - git clone 
