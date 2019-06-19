@@ -34911,6 +34911,7 @@ const ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/
 const ioClient = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 const header_1 = __webpack_require__(/*! ./components/header */ "./src/client/components/header.tsx");
 const orders_list_1 = __webpack_require__(/*! ./components/orders_list */ "./src/client/components/orders_list.tsx");
+__webpack_require__(/*! ./assets/favicon.ico */ "./src/client/assets/favicon.ico");
 __webpack_require__(/*! ./styles/default.css */ "./src/client/styles/default.css");
 const endpoint = window.location.host.includes('css-')
     ? 'https://css-assessment.herokuapp.com/api'
@@ -34979,6 +34980,17 @@ class App extends React.Component {
 exports.App = App;
 ReactDOM.render(React.createElement(App, null), document.getElementById('root') || document.createElement('div'));
 
+
+/***/ }),
+
+/***/ "./src/client/assets/favicon.ico":
+/*!***************************************!*\
+  !*** ./src/client/assets/favicon.ico ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "favicon.ico";
 
 /***/ }),
 

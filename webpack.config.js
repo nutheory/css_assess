@@ -41,8 +41,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.svg$/,
-        use: 'file-loader',
+        test: /\.(svg|ico)$/,
+        use: 'file-loader?name=[name].[ext]',
       },
       {
         enforce: 'pre',

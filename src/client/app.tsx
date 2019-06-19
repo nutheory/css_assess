@@ -4,6 +4,7 @@ import * as ioClient from 'socket.io-client'
 import { Header } from './components/header'
 import { OrdersList } from './components/orders_list'
 import { IOrder } from './interfaces'
+import './assets/favicon.ico'
 import './styles/default.css'
 
 const endpoint = window.location.host.includes('css-')
