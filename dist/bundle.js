@@ -34973,7 +34973,7 @@ class App extends React.Component {
         const { orders, initialized, filter, timer } = this.state;
         return (React.createElement("div", { className: "container mx-auto my-8" },
             React.createElement(header_1.Header, { handleInitCallback: this.initializeDataStream, setFilterCallback: this.setFilter }),
-            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-4 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "mx-4 text-xl mt-4" }, "Click the Open Kitchen button above to start accepting food orders."))));
+            initialized ? (React.createElement("div", null, orders.length > 0 ? (React.createElement(orders_list_1.OrdersList, { orders: orders, filter: filter, setCookedCallback: this.setCookedTimer, editOrderCallback: this.editOrder, timer: timer })) : (React.createElement("p", { className: "title mx-8 text-xl mt-4" }, "Loading...")))) : (React.createElement("p", { className: "mx-8 text-xl mt-4" }, "Click the Open Kitchen button above to start accepting food orders."))));
     }
 }
 exports.App = App;
@@ -35061,10 +35061,10 @@ function Header(props) {
         setOrderFilter(name || '');
         toggleDropdown();
     }
-    return (React.createElement("header", { className: "flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header" },
+    return (React.createElement("header", { className: "main-header" },
         React.createElement("div", { className: "title mx-4 mt-4 text-xl" },
-            "City Storage Systems",
-            React.createElement("span", { className: "block text-sm" }, "CloudKitchens Dashboard")),
+            "Front-end Engineering Challenge",
+            React.createElement("span", { className: "block text-sm" }, "Food Delivery Dashboard")),
         React.createElement("div", { className: "flex-1", onBlur: closeDropdown },
             React.createElement("div", { className: "flex" },
                 React.createElement("div", { className: "flex-1 relative ml-4" },
@@ -35101,8 +35101,10 @@ function OrderCard(props) {
     }
     function handleStatusChange(e) {
         const ev = e.currentTarget;
-        editOrderCallback({ id: ev.name, event_name: ev.value });
-        modifyStatus();
+        if (editOrderCallback) {
+            editOrderCallback({ id: ev.name, event_name: ev.value });
+            modifyStatus();
+        }
     }
     function toggleHistory(e) {
         setShowingHistory(!showingHistory);
@@ -35182,8 +35184,20 @@ function OrdersList(props) {
                     React.createElement("input", { className: "ml-8 block w-12 cooked-input", type: "number", min: "0", placeholder: "Sec", value: cookedTimer, onChange: handleCookedChange })),
                 React.createElement("ul", { className: "prepped-list" }, ordersWithUrgency.map(owu => (React.createElement("li", { key: `cooked_${owu.id}`, className: "w-full list-none p-4" },
                     React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: owu.destination, eventName: owu.event_name, name: owu.name, history: owu.history, id: owu.id, msgReceivedAt: owu.msg_received_at }))))))),
-        React.createElement("ul", { className: `flex self-start flex-wrap w-full lg:w-3/4` }, ordersWithFilter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: `w-full md:w-1/2 lg:w-1/3 list-none p-4` },
-            React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: ord.destination, eventName: ord.event_name, name: ord.name, history: ord.history, id: ord.id, msgReceivedAt: ord.msg_received_at })))))));
+        React.createElement("ul", { className: `flex self-start flex-wrap w-full lg:w-3/4` },
+            React.createElement("li", { className: "text-sm m-4 flex flex-wrap" },
+                React.createElement("ul", { className: "w-1/2 flex flex-wrap" },
+                    React.createElement("li", { className: "w-full text-lg title" }, "Tech"),
+                    React.createElement("li", { className: "w-1/2" }, "React"),
+                    React.createElement("li", { className: "w-1/2" }, "Typescript"),
+                    React.createElement("li", { className: "w-1/2" }, "Socket.io"),
+                    React.createElement("li", { className: "w-1/2" }, "Express"),
+                    React.createElement("li", { className: "w-1/2" }, "TailwindCSS"),
+                    React.createElement("li", { className: "w-1/2" }, "ESLint/Prettier"),
+                    React.createElement("li", { className: "w-full" }, "Jest/Enzyme/Sinon")),
+                React.createElement("p", { className: "w-1/2" }, "As the stream feeds orders down to the client each incoming order gets grouped by ID with the most recent status as active and inactive statuses get pooled into a history attribute on the order object. You can edit the status in-place and see your edit reflected immediately in the order info and history.")),
+            ordersWithFilter.map((ord, i) => (React.createElement("li", { key: `ev_${i}_${ord.id}`, className: `w-full md:w-1/2 lg:w-1/3 list-none p-4` },
+                React.createElement(order_card_1.OrderCard, { editOrderCallback: editOrderCallback, destination: ord.destination, eventName: ord.event_name, name: ord.name, history: ord.history, id: ord.id, msgReceivedAt: ord.msg_received_at })))))));
 }
 exports.OrdersList = OrdersList;
 

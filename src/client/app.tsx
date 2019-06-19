@@ -126,11 +126,11 @@ export class App extends React.Component<{}, IAppState> {
                 timer={timer}
               />
             ) : (
-              <p className="title mx-4 text-xl mt-4">Loading...</p>
+              <p className="title mx-8 text-xl mt-4">Loading...</p>
             )}
           </div>
         ) : (
-          <p className="mx-4 text-xl mt-4">
+          <p className="mx-8 text-xl mt-4">
             Click the Open Kitchen button above to start accepting food orders.
           </p>
         )}

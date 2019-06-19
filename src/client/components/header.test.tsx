@@ -28,7 +28,7 @@ describe('verify callbacks get called properly', () => {
   it('renders with button that calls initialize callback', () => {
     const spy = Sinon.spy()
     const statefulFunction = mount(
-      <Header setFilterCallback={() => {}} handleInitCallback={spy} />
+      <Header handleInitCallback={spy} setFilterCallback={() => {}} />
     )
     statefulFunction
       .find('div.push-button')

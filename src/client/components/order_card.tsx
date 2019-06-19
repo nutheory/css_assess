@@ -14,7 +14,7 @@ interface IOrderProps {
   id: string
   history: Array<IOrder>
   msgReceivedAt: number
-  editOrderCallback: (order: Object) => void
+  editOrderCallback?: (order: Object) => void
 }
 
 interface IOrderState {
@@ -41,8 +41,10 @@ export function OrderCard(props: IOrderProps) {
 
   function handleStatusChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const ev = e.currentTarget
-    editOrderCallback({ id: ev.name, event_name: ev.value })
-    modifyStatus()
+    if (editOrderCallback) {
+      editOrderCallback({ id: ev.name, event_name: ev.value })
+      modifyStatus()
+    }
   }
 
   function toggleHistory(e: React.SyntheticEvent<EventTarget>) {

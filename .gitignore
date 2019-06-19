@@ -63,3 +63,5 @@ typings/
 .vscode
 
 __snapshots__/
+
+.env.local

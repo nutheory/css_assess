@@ -6,4 +6,6 @@ export interface IOrder {
   history: Array<IOrder>
   sent_at_second: number | string
   msg_received_at: number
+  lat: number
+  lng: number
 }

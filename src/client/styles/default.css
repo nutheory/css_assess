@@ -6,12 +6,29 @@
   @apply p-4 border-2 rounded bg-gray-700 shadow-lg relative;
 }
 
+.main-header{
+  @apply flex flex-wrap relative rounded-lg shadow-lg mx-4 border border-gray-800 z-50
+}
+
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css?family=Shrikhand|Source+Sans+Pro:300,400,600');
 
 body{
   background-color: #22292f;
   color: #fff;
+}
+
+.main-header{
+  background-color: #22292f;
+}
+
+.mapper{
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
 }
 
 .title{

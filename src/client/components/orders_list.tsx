@@ -72,6 +72,25 @@ export function OrdersList(props: IOrdersProps) {
         </div>
       </div>
       <ul className={`flex self-start flex-wrap w-full lg:w-3/4`}>
+        <li className="text-sm m-4 flex flex-wrap">
+          <ul className="w-1/2 flex flex-wrap">
+            <li className="w-full text-lg title">Tech</li>
+            <li className="w-1/2">React</li>
+            <li className="w-1/2">Typescript</li>
+            <li className="w-1/2">Socket.io</li>
+            <li className="w-1/2">Express</li>
+            <li className="w-1/2">TailwindCSS</li>
+            <li className="w-1/2">ESLint/Prettier</li>
+            <li className="w-full">Jest/Enzyme/Sinon</li>
+          </ul>
+          <p className="w-1/2">
+            As the stream feeds orders down to the client each incoming order
+            gets grouped by ID with the most recent status as active and
+            inactive statuses get pooled into a history attribute on the order
+            object. You can edit the status in-place and see your edit reflected
+            immediately in the order info and history.
+          </p>
+        </li>
         {ordersWithFilter.map((ord, i) => (
           <li
             key={`ev_${i}_${ord.id}`}

@@ -78,10 +78,10 @@ export function Header(props: IHeaderProps) {
   }
 
   return (
-    <header className="flex flex-wrap rounded-lg shadow-lg mx-4 border border-gray-800 main-header">
+    <header className="main-header">
       <div className="title mx-4 mt-4 text-xl">
-        City Storage Systems
-        <span className="block text-sm">CloudKitchens Dashboard</span>
+        Front-end Engineering Challenge
+        <span className="block text-sm">Food Delivery Dashboard</span>
       </div>
       <div className="flex-1" onBlur={closeDropdown}>
         <div className="flex">

@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/client/app.tsx',
@@ -40,12 +41,19 @@ module.exports = {
         ],
       },
       {
+        test: /\.svg$/,
+        use: 'file-loader',
+      },
+      {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin({ filename: './default.css' })],
+  plugins: [
+    new Dotenv(),
+    new MiniCssExtractPlugin({ filename: './default.css' }),
+  ],
   devtool: 'source-map',
 }

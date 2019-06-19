@@ -1,4 +1,4 @@
-# Front-end Engineering Challenge
+# Front-end Engineering Dashboard Challenge
 
 ### LIVE on Heroku ... https://css-assessment.herokuapp.com/
  
@@ -12,12 +12,7 @@
 ## Main Tooling w/ reasons for use
 
  - Typescript
-   > Im a fan of explicit interfaces to communicate developer intent and make sure
-   > people are really thinking carefully with a language that was built
-   > for sloppiness. Plus it beats denoting private methods with underscores.
  - React 
-   > Its the cleanest framework out there. Its not the Kitchen-sink solution (Angular), its got a massive and    
-   > active community building off its foundation and its new hooks are so clean.
  - Socket.io 
  - Webpack 
  - Express
@@ -29,9 +24,6 @@
 
 #### Styling
  - TailwindCSS 
-	> CSS in JS is awesome. Provides rapid prototyping of styles with great
-	> defaults that works great for component composition as your project
-	> grows and get more defined.
 
 #### Code Standards
  - ESLint
@@ -46,5 +38,3 @@ reflected immediately in the order info and history.
 
 The filter responds to both the keyboard and pointer, just delete the text to "show all". The timer in the "prepared within" area on the left side of the order list can be edited to change the TTL time of prepared orders in that section.
 
-
-### Thank you for your consideration.
