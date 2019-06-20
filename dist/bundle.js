@@ -34913,8 +34913,8 @@ const header_1 = __webpack_require__(/*! ./components/header */ "./src/client/co
 const orders_list_1 = __webpack_require__(/*! ./components/orders_list */ "./src/client/components/orders_list.tsx");
 __webpack_require__(/*! ./assets/favicon.ico */ "./src/client/assets/favicon.ico");
 __webpack_require__(/*! ./styles/default.css */ "./src/client/styles/default.css");
-const endpoint = window.location.host.includes('css-')
-    ? 'https://css-assessment.herokuapp.com/api'
+const endpoint = window.location.host.includes('food-')
+    ? 'http://food-delivery.cffd.ink/api'
     : 'http://localhost:5000/api';
 class App extends React.Component {
     constructor(props) {

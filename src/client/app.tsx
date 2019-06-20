@@ -7,8 +7,8 @@ import { IOrder } from './interfaces'
 import './assets/favicon.ico'
 import './styles/default.css'
 
-const endpoint = window.location.host.includes('css-')
-  ? 'https://css-assessment.herokuapp.com/api'
+const endpoint = window.location.host.includes('food-')
+  ? 'http://food-delivery.cffd.ink/api'
   : 'http://localhost:5000/api'
 
 interface IAppState {
